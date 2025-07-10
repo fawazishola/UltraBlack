@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultra Black Run Club</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- GSAP (GreenSock Animation Platform) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
+
+    <style>
+        /* Custom Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0A0A0A;
+            color: #EAEAEA;
+        }
+        .glossy-header {
+            background: linear-gradient(180deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.6) 80%, rgba(0,0,0,0) 100%);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+        .hero-bg {
+            background-image: url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+        .animated-text-container {
+            min-height: 10vh;
+        }
+        .animated-text {
+            font-weight: 900;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            text-align: center;
+            line-height: 1.1;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        .city-tile {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .city-tile:hover {
+            transform: scale(1.03);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.2), 0 8px 10px -6px rgb(0 0 0 / 0.2);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Hero Section -->
+    <header class="relative min-h-screen flex flex-col">
+        <div class="hero-bg absolute inset-0 z-[-1]"></div>
+        <div class="absolute inset-0 bg-black/60 z-[-1]"></div>
+
+        <!-- Navigation -->
+        <nav id="navbar" class="glossy-header fixed top-0 left-0 right-0 z-50">
+            <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+                <a href="index.html" class="text-2xl font-black tracking-wider">ULTRA BLACK</a>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a href="Run Clubs.html" class="hover:text-white transition-colors">Run Clubs</a>
+                    <a href="fitness.html" class="hover:text-white transition-colors">Fitness</a>
+                    <a href="wellness.html" class="hover:text-white transition-colors">Wellness</a>
+                    <a href="About.html" class="hover:text-white transition-colors">About</a>
+                    <a href="store.html" class="hover:text-white transition-colors">Store</a>
+                    <a href="donations.html" class="hover:text-white transition-colors">Donations</a>
+                    <a href="scholarship.html" class="hover:text-white transition-colors">Scholarship</a>
+                </div>
+
+                <div class="hidden lg:flex items-center">
+                    <a href="#" class="bg-white text-black font-bold py-3 px-6 rounded-full hover:bg-gray-200 transition-transform transform hover:scale-105">
+                        Join the Movement
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" class="lg:hidden flex items-center p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden fixed inset-0 bg-black/95 z-40 pt-24">
+            <div class="container mx-auto px-6 flex flex-col items-center text-center space-y-6">
+                <a href="Run Clubs.html" class="text-2xl hover:text-white transition-colors">Run Clubs</a>
+                <a href="fitness.html" class="text-2xl hover:text-white transition-colors">Fitness</a>
+                <a href="wellness.html" class="text-2xl hover:text-white transition-colors">Wellness</a>
+                <a href="About.html" class="text-2xl hover:text-white transition-colors">About</a>
+                <a href="store.html" class="text-2xl hover:text-white transition-colors">Store</a>
+                <a href="donations.html" class="text-2xl hover:text-white transition-colors">Donations</a>
+                <a href="scholarship.html" class="text-2xl hover:text-white transition-colors">Scholarship</a>
+                <a href="#" class="mt-8 bg-white text-black font-bold py-4 px-8 rounded-full hover:bg-gray-200 transition-transform transform hover:scale-105">Join the Movement</a>
+            </div>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="flex-grow flex items-center justify-center">
+            <div class="text-center text-white px-4">
+                <!-- This is a placeholder for the animated text. JS will populate it. -->
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Core Statement Section -->
+        <section class="py-20 md:py-32">
+            <div class="container mx-auto px-6 animated-text-container">
+                <h1 id="animated-text" class="animated-text text-white"></h1>
+            </div>
+        </section>
+
+        <!-- Featured Cities Section -->
+        <section class="py-16 bg-black">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12">Find Your Crew</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- City Tile 1 -->
+                    <a href="#" class="city-tile relative h-96 rounded-lg overflow-hidden group">
+                        <img src="https://images.unsplash.com/photo-1533221344334-15a133141876?q=80&w=1974&auto=format&fit=crop" class="absolute w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Toronto cityscape">
+                        <div class="absolute inset-0 bg-black/50"></div>
+                        <div class="relative h-full flex flex-col justify-end p-8 text-white">
+                            <h3 class="text-4xl font-black">Toronto</h3>
+                            <div class="mt-4 bg-white text-black font-bold py-3 px-6 rounded-full self-start group-hover:bg-gray-200 transition-colors">
+                                Join this week
+                            </div>
+                        </div>
+                    </a>
+                    <!-- City Tile 2 -->
+                    <a href="#" class="city-tile relative h-96 rounded-lg overflow-hidden group">
+                        <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?q=80&w=2070&auto=format&fit=crop" class="absolute w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="New York City">
+                        <div class="absolute inset-0 bg-black/50"></div>
+                        <div class="relative h-full flex flex-col justify-end p-8 text-white">
+                            <h3 class="text-4xl font-black">New York</h3>
+                            <div class="mt-4 bg-white text-black font-bold py-3 px-6 rounded-full self-start group-hover:bg-gray-200 transition-colors">
+                                Join this week
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Preview Section -->
+        <section class="py-16">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12">The Movement in Motion</h2>
+                <div class="gallery-grid">
+                    <img src="https://placehold.co/600x400/000000/FFFFFF?text=UGC+1" alt="User generated content 1" class="rounded-lg w-full h-full object-cover">
+                    <img src="https://placehold.co/600x400/111111/FFFFFF?text=UGC+2" alt="User generated content 2" class="rounded-lg w-full h-full object-cover">
+                    <img src="https://placehold.co/600x400/222222/FFFFFF?text=UGC+3" alt="User generated content 3" class="rounded-lg w-full h-full object-cover">
+                    <img src="https://placehold.co/600x400/333333/FFFFFF?text=UGC+4" alt="User generated content 4" class="rounded-lg w-full h-full object-cover">
+                    <img src="https://placehold.co/600x400/444444/FFFFFF?text=UGC+5" alt="User generated content 5" class="rounded-lg w-full h-full object-cover">
+                    <img src="https://placehold.co/600x400/555555/FFFFFF?text=UGC+6" alt="User generated content 6" class="rounded-lg w-full h-full object-cover">
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Banner -->
+        <section class="py-20 bg-gray-900">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold mb-4">Wanna run something by us?</h2>
+                <p class="text-lg text-gray-300 mb-8">We're always open to new ideas, collaborations, and conversations.</p>
+                <a href="#" class="bg-white text-black font-bold py-4 px-8 rounded-full hover:bg-gray-200 transition-transform transform hover:scale-105">
+                    Get In Touch
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black py-12">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <div class="flex justify-center space-x-6 mb-4">
+                <!-- Instagram Icon -->
+                <a href="#" class="hover:text-white">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12.315 2c-4.42 0-7.8 2.34-9.423 5.428C1.24 10.49.873 13.734 2.01 17.15c1.11 3.35 3.8 5.85 7.28 5.85h4.216c3.48 0 6.17-2.5 7.28-5.85 1.137-3.416.77-6.66-1.07-9.722C18.115 4.34 16.735 2 12.315 2zm0 1.622c3.822 0 6.75 1.98 8.21 4.686.86 1.54 1.32 3.546.96 5.922-.53 3.5-2.67 5.22-5.46 5.22h-4.21c-2.79 0-4.93-1.72-5.46-5.22-.36-2.376.1-4.382.96-5.922C5.565 3.98 8.493 2 12.315 2zM6.35 9.182c.33 0 .6.27.6.6v4.836a.6.6 0 01-1.2 0V9.782c0-.33.27-.6.6-.6zm11.3 0c.33 0 .6.27.6.6v4.836a.6.6 0 01-1.2 0V9.782c0-.33.27-.6.6-.6zM12 6.545c-3.01 0-5.455 2.444-5.455 5.455S8.99 17.455 12 17.455s5.455-2.444 5.455-5.455S15.01 6.545 12 6.545zm0 1.2c2.345 0 4.255 1.91 4.255 4.255S14.345 16.255 12 16.255 7.745 14.345 7.745 12s1.91-4.255 4.255-4.255z" clip-rule="evenodd"/></svg>
+                </a>
+                <!-- TikTok Icon -->
+                <a href="#" class="hover:text-white">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-2.43.05-4.86-.95-6.69-2.81-1.75-1.76-2.59-4.16-2.6-6.69-.01-2.42.93-4.82 2.7-6.61 1.8-1.83 4.26-2.8 6.7-2.66.01 1.56-.01 3.12.01 4.67.01.15.02.3.02.45-.56-.11-1.11-.23-1.66-.37-1.43-.37-2.86-.36-4.29.05-1.13.33-2.17.85-3.07 1.57-.91.72-1.63 1.65-2.1 2.71-.63 1.52-.84 3.2-.53 4.8.31 1.6 1.15 3.04 2.41 4.13 1.25 1.09 2.81 1.7 4.45 1.75 1.62.05 3.2-.49 4.47-1.48 1.23-.95 2.04-2.32 2.26-3.83.07-.46.08-.92.08-1.38.01-3.48.01-6.95.02-10.43.01-.12.02-.24.02-.37.01-.15.01-.3-.01-.45-.2-.02-.39-.04-.58-.04-1.28-.01-2.57-.01-3.85-.01z"/></svg>
+                </a>
+                <!-- YouTube Icon -->
+                <a href="#" class="hover:text-white">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.78 22 12 22 12s0 3.22-.42 4.814a2.506 2.506 0 0 1-1.768 1.768c-1.594.42-7.812.42-7.812.42s-6.218 0-7.812-.42a2.506 2.506 0 0 1-1.768-1.768C2 15.22 2 12 2 12s0-3.22.42-4.814a2.506 2.506 0 0 1 1.768-1.768C5.782 5 12 5 12 5s6.218 0 7.812.418ZM15.197 12 10 8.82v6.36L15.197 12Z" clip-rule="evenodd"/></svg>
+                </a>
+            </div>
+            <p class="font-bold text-lg">@ultrablack.run</p>
+            <p class="mt-4 text-sm">&copy; 2024 Ultra Black. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile Menu Toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // GSAP Animation for the core statement
+            const animatedText = document.getElementById('animated-text');
+            const textContent = "We run together. We move the culture.";
+            
+            // Split text into words for animation
+            const words = textContent.split(' ');
+            animatedText.innerHTML = words.map(word => `<span class="inline-block opacity-0">${word}</span>`).join(' ');
+            
+            gsap.to("#animated-text span", {
+                duration: 0.8,
+                opacity: 1,
+                y: 0,
+                ease: "power3.out",
+                stagger: 0.15,
+                scrollTrigger: {
+                    trigger: "#animated-text",
+                    start: "top 80%", // Starts animation when the top of the element is 80% from the top of the viewport
+                }
+            });
+
+            // Simple parallax for hero background on scroll
+            window.addEventListener('scroll', () => {
+                const heroBg = document.querySelector('.hero-bg');
+                const scrollY = window.scrollY;
+                if (heroBg) {
+                    heroBg.style.transform = `translateY(${scrollY * 0.3}px)`;
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

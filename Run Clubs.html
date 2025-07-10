@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultra Black - Run Clubs</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- GSAP (GreenSock Animation Platform) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0A0A0A;
+            color: #EAEAEA;
+            overflow-x: hidden;
+        }
+        .glossy-header {
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .map-container {
+            background-image: url('https://images.unsplash.com/photo-1594168992399-703a4a7842a2?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+        .city-details {
+            display: none; /* Hidden by default, shown by JS */
+        }
+        
+        /* New Stride Animation Styles */
+        .stride-reveal-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Full viewport height for pinning */
+        }
+        .stride-text h2 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            text-align: center;
+            color: #EAEAEA;
+        }
+        .stride-text .line {
+            position: relative;
+            display: block;
+            overflow: hidden; /* Hide the pseudo-element overflow */
+            padding: 0.2em 0;
+        }
+        .stride-text .line::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: #EAEAEA; /* The color of the wipe */
+            transform-origin: right;
+            transform: scaleX(var(--line-reveal, 1));
+        }
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navigation -->
+    <nav class="glossy-header sticky top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-black tracking-wider">ULTRA BLACK</a>
+            <div class="hidden lg:flex items-center space-x-8">
+                <a href="Run Clubs.html" class="text-white font-bold">Run Clubs</a>
+                <a href="fitness.html" class="hover:text-white transition-colors">Fitness</a>
+                <a href="wellness.html" class="hover:text-white transition-colors">Wellness</a>
+                <a href="About.html" class="hover:text-white transition-colors">About</a>
+                <a href="store.html" class="hover:text-white transition-colors">Store</a>
+                <a href="donations.html" class="hover:text-white transition-colors">Donations</a>
+                <a href="scholarship.html" class="hover:text-white transition-colors">Scholarship</a>
+            </div>
+            <div class="hidden lg:flex items-center">
+                <a href="#" class="bg-white text-black font-bold py-3 px-6 rounded-full hover:bg-gray-200 transition-transform transform hover:scale-105">
+                    Join the Movement
+                </a>
+            </div>
+            <button id="mobile-menu-button" class="lg:hidden flex items-center p-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden lg:hidden fixed inset-0 bg-black/95 z-40 pt-24">
+        <div class="container mx-auto px-6 flex flex-col items-center text-center space-y-6">
+            <a href="index.html" class="text-2xl premium-link text-gray-300">Home</a>
+            <a href="Run Clubs.html" class="text-2xl premium-link text-white font-bold">Run Clubs</a>
+            <a href="fitness.html" class="text-2xl premium-link text-gray-300">Fitness</a>
+            <a href="wellness.html" class="text-2xl premium-link text-gray-300">Wellness</a>
+            <a href="About.html" class="text-2xl premium-link text-gray-300">About</a>
+            <a href="store.html" class="text-2xl premium-link text-gray-300">Store</a>
+            <a href="donations.html" class="text-2xl premium-link text-gray-300">Donations</a>
+            <a href="scholarship.html" class="text-2xl premium-link text-gray-300">Scholarship</a>
+            <a href="#" class="mt-8 bg-white text-black font-bold py-4 px-8 rounded-full premium-button">Join the Movement</a>
+        </div>
+    </div>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="relative min-h-[70vh] md:min-h-[80vh] flex flex-col justify-center items-center text-center text-white p-6 overflow-hidden">
+            <div class="map-container absolute inset-0 z-0"></div>
+            <div class="absolute inset-0 bg-black/70 z-0"></div>
+            
+            <div class="relative z-10">
+                <h1 class="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-4" id="hero-title">Select a City</h1>
+                <p class="max-w-2xl mx-auto text-lg md:text-xl text-gray-300 mb-8" id="hero-subtitle">
+                    Choose a city from the dropdown to see its run club details.
+                </p>
+                <div class="relative inline-block">
+                    <select id="city-selector" class="appearance-none bg-white text-black font-bold py-4 pl-6 pr-12 rounded-full text-lg cursor-pointer focus:outline-none">
+                        <option value="">Choose your city...</option>
+                        <option value="toronto">Toronto</option>
+                        <option value="new-york">New York</option>
+                        <option value="london">London</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-black">
+                        <svg class="fill-current h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stride Text Reveal Section -->
+        <section class="stride-reveal-container bg-black">
+            <div class="stride-text container mx-auto px-6">
+                <h2>
+                    <span class="line">Each city holds its own rhythm.</span>
+                    <span class="line">Find your pace.</span>
+                </h2>
+            </div>
+        </section>
+
+        <!-- City Details Section -->
+        <div id="city-details-container" class="py-16 bg-black">
+            <!-- Toronto -->
+            <div id="toronto" class="city-details container mx-auto px-6">
+                <div class="bg-gray-900 rounded-lg p-8 md:p-12">
+                    <h2 class="text-5xl font-black mb-2">Toronto</h2>
+                    <p class="text-xl text-gray-400 mb-8">The 6ix's heartbeat, running through every borough.</p>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="lg:col-span-2">
+                            <h3 class="text-2xl font-bold mb-4">Upcoming Runs</h3>
+                            <ul class="space-y-3">
+                                <li><strong class="text-white">Tues:</strong> 7 PM - Tempo Tuesdays @ The Bentway</li>
+                                <li><strong class="text-white">Thurs:</strong> 7 PM - Social 5k @ Harbourfront</li>
+                                <li><strong class="text-white">Sun:</strong> 9 AM - Long Run @ High Park</li>
+                            </ul>
+                            <h3 class="text-2xl font-bold mt-8 mb-4">Local Leaders</h3>
+                            <p>Led by Marcus and Chloe</p>
+                        </div>
+                        <div class="w-full h-64 md:h-full rounded-lg overflow-hidden">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2887.472522292991!2d-79.3842603238637!3d43.64009235293248!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d4cb23ab62a799%3A0x23d212532470768!2sHarbourfront%20Centre!5e0!3m2!1sen!2sca!4v1720432520844!5m2!1sen!2sca" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- New York -->
+            <div id="new-york" class="city-details container mx-auto px-6">
+                 <div class="bg-gray-900 rounded-lg p-8 md:p-12">
+                    <h2 class="text-5xl font-black mb-2">New York</h2>
+                    <p class="text-xl text-gray-400 mb-8">Concrete jungle where running dreams are made of.</p>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="lg:col-span-2">
+                            <h3 class="text-2xl font-bold mb-4">Upcoming Runs</h3>
+                            <ul class="space-y-3">
+                                <li><strong class="text-white">Mon:</strong> 6:30 PM - Bridge Run @ Williamsburg Bridge</li>
+                                <li><strong class="text-white">Wed:</strong> 7 AM - Sunrise Sprints @ Central Park</li>
+                                <li><strong class="text-white">Sat:</strong> 10 AM - Borough Connect @ Prospect Park</li>
+                            </ul>
+                            <h3 class="text-2xl font-bold mt-8 mb-4">Local Leaders</h3>
+                            <p>Led by Jasmine and Andre</p>
+                        </div>
+                        <div class="w-full h-64 md:h-full rounded-lg overflow-hidden">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.08321410295!2d-73.9845570239859!3d40.76023193514936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25859e450913f%3A0x522ae16882421c6e!2sColumbus%20Circle!5e0!3m2!1sen!2sca!4v1720432612713!5m2!1sen!2sca" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- London -->
+            <div id="london" class="city-details container mx-auto px-6">
+                 <div class="bg-gray-900 rounded-lg p-8 md:p-12">
+                    <h2 class="text-5xl font-black mb-2">London</h2>
+                    <p class="text-xl text-gray-400 mb-8">Pounding the pavement from the Thames to the Tube.</p>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="lg:col-span-2">
+                            <h3 class="text-2xl font-bold mb-4">Upcoming Runs</h3>
+                            <ul class="space-y-3">
+                                <li><strong class="text-white">Tues:</strong> 7 PM - Track Night @ Battersea Park</li>
+                                <li><strong class="text-white">Thurs:</strong> 6:45 PM - Social Run @ Regent's Park</li>
+                                <li><strong class="text-white">Sun:</strong> 9:30 AM - Royal Parks Long Run</li>
+                            </ul>
+                            <h3 class="text-2xl font-bold mt-8 mb-4">Local Leaders</h3>
+                            <p>Led by Ade and Simone</p>
+                        </div>
+                        <div class="w-full h-64 md:h-full rounded-lg overflow-hidden">
+                           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2482.167368953923!2d-0.1585687234978455!3d51.52580970924973!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761ace40469959%3A0x29043e6234956767!2sThe%20Regent&#39;s%20Park!5e0!3m2!1sen!2sca!4v1720432668586!5m2!1sen!2sca" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-black py-12 border-t border-gray-800">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <p class="font-bold text-lg">@ultrablack.run</p>
+            <p class="mt-4 text-sm">&copy; 2024 Ultra Black. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // --- Mobile Menu ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // --- GSAP Animations ---
+
+            // 1. Hero Text Animation
+            gsap.from(["#hero-title", "#hero-subtitle", "#city-selector"], {
+                opacity: 0,
+                y: 50,
+                duration: 1,
+                stagger: 0.2,
+                ease: "power3.out"
+            });
+
+            // 2. Stride Text Reveal Animation
+            const lines = document.querySelectorAll(".stride-text .line");
+
+            // Set initial state for the reveal
+            lines.forEach(line => {
+                gsap.set(line, { '--line-reveal': '1' });
+            });
+
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: ".stride-reveal-container",
+                    pin: true,
+                    start: "center center",
+                    end: "+=50%", // Faster scroll duration
+                    scrub: 0.3,   // Faster scrub
+                }
+            });
+
+            // Animate the CSS variable on the lines with a faster stagger
+            tl.to(lines, {
+                '--line-reveal': '0',
+                ease: 'none',
+                stagger: 0.1 // Faster stagger
+            });
+            
+
+            // --- City Selector Logic ---
+            const selector = document.getElementById('city-selector');
+            let activeCity = null;
+
+            selector.addEventListener('change', (e) => {
+                const selectedCity = e.target.value;
+
+                // Hide previously active city details
+                if (activeCity) {
+                    const activeDetails = document.getElementById(activeCity);
+                    gsap.to(activeDetails, { opacity: 0, y: 30, duration: 0.5, onComplete: () => activeDetails.style.display = 'none' });
+                }
+
+                if (selectedCity) {
+                    const newDetails = document.getElementById(selectedCity);
+                    
+                    // Animate new details in
+                    newDetails.style.display = 'block';
+                    gsap.fromTo(newDetails, 
+                        { opacity: 0, y: 30 },
+                        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out", delay: 0.2 }
+                    );
+                }
+                
+                activeCity = selectedCity;
+            });
+        });
+    </script>
+</body>
+</html>

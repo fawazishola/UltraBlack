@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ultra Black - Scholarship</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <style>
+    body { font-family: 'Inter', sans-serif; background-color: #0A0A0A; color: #EAEAEA; overflow-x: hidden; }
+    .glossy-header { background: rgba(10,10,10,0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+    .premium-link { transition: color 0.3s ease; }
+    .premium-link:hover { color: #FFFFFF; }
+    .premium-button { transition: background-color 0.3s ease, transform 0.3s ease; }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- Navigation -->
+  <nav class="glossy-header fixed top-0 left-0 right-0 z-50">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="text-2xl font-black tracking-wider premium-link">ULTRA BLACK</a>
+      <div class="hidden lg:flex items-center space-x-8">
+        <a href="Run Clubs.html" class="premium-link text-gray-300">Run Clubs</a>
+        <a href="fitness.html" class="premium-link text-gray-300">Fitness</a>
+        <a href="wellness.html" class="premium-link text-gray-300">Wellness</a>
+        <a href="About.html" class="premium-link text-gray-300">About</a>
+        <a href="store.html" class="premium-link text-gray-300">Store</a>
+        <a href="donations.html" class="premium-link text-gray-300">Donations</a>
+        <a href="scholarship.html" class="premium-link text-white font-bold">Scholarship</a>
+      </div>
+      <div class="hidden lg:flex items-center">
+        <a href="#" class="bg-white text-black font-bold py-3 px-6 rounded-full premium-button hover:bg-gray-200 hover:scale-105">
+          Apply Now
+        </a>
+      </div>
+      <button id="mobile-menu-button" class="lg:hidden flex items-center p-2">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden lg:hidden fixed inset-0 bg-black/95 z-40 pt-24">
+    <div class="container mx-auto px-6 flex flex-col items-center text-center space-y-6">
+      <a href="Run Clubs.html" class="text-2xl premium-link text-gray-300">Run Clubs</a>
+      <a href="fitness.html" class="text-2xl premium-link text-gray-300">Fitness</a>
+      <a href="wellness.html" class="text-2xl premium-link text-gray-300">Wellness</a>
+      <a href="About.html" class="text-2xl premium-link text-gray-300">About</a>
+      <a href="store.html" class="text-2xl premium-link text-gray-300">Store</a>
+      <a href="donations.html" class="text-2xl premium-link text-gray-300">Donations</a>
+      <a href="scholarship.html" class="text-2xl premium-link text-white font-bold">Scholarship</a>
+      <a href="#" class="mt-8 bg-white text-black font-bold py-4 px-8 rounded-full premium-button">Apply Now</a>
+    </div>
+  </div>
+
+  <main class="py-20 md:py-32 bg-black">
+    <div class="container mx-auto px-6 max-w-4xl text-center">
+      <h1 class="text-5xl font-bold mb-4">Scholarship</h1>
+      <p class="text-lg text-gray-300 mb-6">Our annual scholarship supports aspiring leaders in fitness and wellness. Learn more and apply today.</p>
+      <a href="#" class="bg-white text-black font-bold py-3 px-6 rounded-full premium-button hover:bg-gray-200 hover:scale-105">Learn More</a>
+    </div>
+  </main>
+
+  <!-- Redesigned Footer -->
+  <footer class="bg-black text-gray-400 pt-16 pb-12">
+    <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-10 gap-8 mb-20">
+            <div class="md:col-span-3">
+                <h4 class="text-lg font-bold text-white mb-4">Run the culture.</h4>
+                <p>Toronto—Canada</p>
+            </div>
+            <div class="md:col-span-3">
+                <p class="mb-4">Sign up for our newsletter:</p>
+                <input type="email" placeholder="Your Email" class="footer-input">
+            </div>
+            <div class="md:col-span-2">
+                <ul class="space-y-2">
+                    <li><a href="Run Clubs.html" class="premium-link">Run Clubs</a></li>
+                    <li><a href="fitness.html" class="premium-link">Fitness</a></li>
+                    <li><a href="wellness.html" class="premium-link">Wellness</a></li>
+                    <li><a href="About.html" class="premium-link">About</a></li>
+                </ul>
+            </div>
+            <div class="md:col-span-2">
+                <ul class="space-y-2">
+                    <li><a href="store.html" class="premium-link">Store</a></li>
+                    <li><a href="donations.html" class="premium-link">Donations</a></li>
+                    <li><a href="scholarship.html" class="premium-link">Scholarship</a></li>
+                    <li><a href="#" class="premium-link">Instagram &rarr;</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-800 pt-8 flex justify-between items-end">
+            <div class="flex space-x-4 text-sm">
+                <p>&copy; 2025</p>
+                <a href="#" class="premium-link">Terms of use</a>
+            </div>
+            <div class="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-none whitespace-nowrap">
+                ULTRA BLACK
+            </div>
+        </div>
+    </div>
+  </footer>
+
+</body>
+</html>
