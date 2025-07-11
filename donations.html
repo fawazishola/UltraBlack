@@ -125,12 +125,16 @@
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="text-2xl font-black tracking-wider premium-link">ULTRA BLACK</a>
             <div class="hidden lg:flex items-center space-x-8">
-                <a href="#" class="premium-link text-gray-300">Run Clubs</a>
-                <a href="#" class="premium-link text-gray-300">Fitness</a>
-                <a href="#" class="premium-link text-gray-300">Wellness</a>
-                <a href="#" class="premium-link text-gray-300">About</a>
-                <a href="#" class="premium-link text-white font-bold">Donate</a>
-                <a href="#" class="premium-link text-gray-300">Store</a>
+                <a href="/UltraBlack/run-clubs.html" class="premium-link text-gray-300 hover:text-white">Run Clubs</a>
+                <a href="/UltraBlack/fitness.html" class="premium-link text-gray-300 hover:text-white">Fitness</a>
+                <a href="/UltraBlack/wellness.html" class="premium-link text-gray-300 hover:text-white">Wellness</a>
+                <a href="/UltraBlack/About.html" class="premium-link text-gray-300 hover:text-white">About</a>
+                <a href="/UltraBlack/donations.html" class="premium-link text-white font-bold">Donate</a>
+                <a href="/UltraBlack/store.html" class="premium-link text-gray-300 hover:text-white">Store</a>
+                <a href="/UltraBlack/cart.html" class="premium-link text-gray-300 hover:text-white flex items-center">
+                    <span>Cart</span>
+                    <span id="cart-count" class="ml-1 bg-white text-black rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">0</span>
+                </a>
             </div>
             <div class="hidden lg:flex items-center">
                 <a href="#" class="bg-white text-black font-bold py-3 px-6 rounded-full premium-button hover:bg-gray-200 hover:scale-105">
@@ -142,6 +146,25 @@
             </button>
         </div>
     </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="lg:hidden fixed inset-0 bg-black/95 z-40 pt-24 hidden">
+        <div class="container mx-auto px-6 flex flex-col space-y-4">
+            <a href="/UltraBlack/run-clubs.html" class="text-2xl text-gray-300 hover:text-white transition-colors">Run Clubs</a>
+            <a href="/UltraBlack/fitness.html" class="text-2xl text-gray-300 hover:text-white transition-colors">Fitness</a>
+            <a href="/UltraBlack/wellness.html" class="text-2xl text-gray-300 hover:text-white transition-colors">Wellness</a>
+            <a href="/UltraBlack/About.html" class="text-2xl text-gray-300 hover:text-white transition-colors">About</a>
+            <a href="/UltraBlack/donations.html" class="text-2xl text-white font-bold">Donate</a>
+            <a href="/UltraBlack/store.html" class="text-2xl text-gray-300 hover:text-white transition-colors">Store</a>
+            <a href="/UltraBlack/cart.html" class="text-2xl text-gray-300 hover:text-white transition-colors flex items-center">
+                <span>Cart</span>
+                <span id="mobile-cart-count" class="ml-2 bg-white text-black rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">0</span>
+            </a>
+            <a href="#" class="mt-4 bg-white text-black font-bold py-3 px-6 rounded-full hover:bg-gray-200 transition-transform transform hover:scale-105 inline-block w-fit">
+                Join the Movement
+            </a>
+        </div>
+    </div>
 
     <main>
         <!-- Hero Section -->
@@ -218,7 +241,32 @@
             gsap.registerPlugin(ScrollTrigger);
 
             // --- Mobile Menu ---
-            // ... (omitted for brevity, same as other pages)
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!mobileMenu.contains(e.target) && e.target !== mobileMenuButton) {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+
+            // Update cart count
+            function updateCartCount() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const totalItems = cart.reduce((total, item) => total + (item.quantity || 1), 0);
+                document.querySelectorAll('#cart-count, #mobile-cart-count').forEach(el => {
+                    el.textContent = totalItems || '0';
+                    el.style.display = totalItems > 0 ? 'flex' : 'none';
+                });
+            }
+            
+            // Initialize cart count
+            updateCartCount();
 
             // --- GSAP Animations ---
             gsap.from(["#hero-title", "#hero-subtitle"], {
