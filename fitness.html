@@ -409,7 +409,9 @@
                     eventDescriptionEl.textContent = event.description;
                     
                     gsap.set(eventDetailsEl, { display: 'block', opacity: 0, y: 20 });
-                    gsap.to(eventDetailsEl, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' });
+                    gsap.to(eventDetailsEl, { opacity: 1, y: 0, duration: 1,
+ease: 'power3.out',
+stagger: 0.2, ease: 'power3.out' });
                     noEventMessageEl.style.display = 'none';
                 }
             }
