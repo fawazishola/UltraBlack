@@ -13,62 +13,130 @@
             font-family: 'Inter', sans-serif;
             background-color: #0A0A0A;
             color: #EAEAEA;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         .glossy-header {
             background: rgba(10, 10, 10, 0.7);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .cart-item {
+            transition: all 0.3s ease;
+        }
+        .cart-item:hover {
+            background-color: rgba(255, 255, 255, 0.02);
         }
     </style>
 </head>
 <body class="antialiased">
-
     <!-- Navigation -->
     <nav class="glossy-header fixed top-0 left-0 right-0 z-50">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-black tracking-wider">ULTRA BLACK</a>
+            <a href="/UltraBlack/index.html" class="text-2xl font-black tracking-wider">ULTRA BLACK</a>
             <div class="hidden lg:flex items-center space-x-8">
-                <a href="Run Clubs.html" class="hover:text-white transition-colors">Run Clubs</a>
-                <a href="fitness.html" class="hover:text-white transition-colors">Fitness</a>
-                <a href="wellness.html" class="hover:text-white transition-colors">Wellness</a>
-                <a href="About.html" class="hover:text-white transition-colors">About</a>
-                <a href="store.html" class="hover:text-white transition-colors">Store</a>
-                <a href="donations.html" class="hover:text-white transition-colors">Donations</a>
-                <a href="scholarship.html" class="hover:text-white transition-colors">Scholarship</a>
+                <a href="/UltraBlack/run-clubs.html" class="hover:text-white transition-colors">Run Clubs</a>
+                <a href="/UltraBlack/fitness.html" class="hover:text-white transition-colors">Fitness</a>
+                <a href="/UltraBlack/wellness.html" class="hover:text-white transition-colors">Wellness</a>
+                <a href="/UltraBlack/About.html" class="hover:text-white transition-colors">About</a>
+                <a href="/UltraBlack/store.html" class="hover:text-white transition-colors">Store</a>
+                <a href="/UltraBlack/donations.html" class="hover:text-white transition-colors">Donations</a>
+                <a href="/UltraBlack/scholarship.html" class="hover:text-white transition-colors">Scholarship</a>
             </div>
             <div class="hidden lg:flex items-center">
-                <a href="#" class="bg-white text-black font-bold py-3 px-6 rounded-full hover:bg-gray-200">Join the Movement</a>
+                <a href="#" class="bg-white text-black font-bold py-3 px-6 rounded-full hover:bg-gray-200 transition-transform transform hover:scale-105">Join the Movement</a>
             </div>
+            <button id="mobile-menu-button" class="lg:hidden flex items-center p-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
         </div>
     </nav>
 
-    <main class="pt-24">
-        <section class="py-20 md:py-32">
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden lg:hidden fixed inset-0 bg-black/95 z-40 pt-24">
+        <div class="container mx-auto px-6 flex flex-col items-center text-center space-y-6">
+            <a href="/UltraBlack/run-clubs.html" class="text-2xl text-gray-400 hover:text-white transition-colors">Run Clubs</a>
+            <a href="/UltraBlack/fitness.html" class="text-2xl text-gray-400 hover:text-white transition-colors">Fitness</a>
+            <a href="/UltraBlack/wellness.html" class="text-2xl text-gray-400 hover:text-white transition-colors">Wellness</a>
+            <a href="/UltraBlack/About.html" class="text-2xl text-gray-400 hover:text-white transition-colors">About</a>
+            <a href="/UltraBlack/store.html" class="text-2xl text-gray-400 hover:text-white transition-colors">Store</a>
+            <a href="/UltraBlack/donations.html" class="text-2xl text-gray-400 hover:text-white transition-colors">Donations</a>
+            <a href="/UltraBlack/scholarship.html" class="text-2xl text-gray-400 hover:text-white transition-colors">Scholarship</a>
+            <a href="#" class="mt-4 bg-white text-black font-bold py-4 px-8 rounded-full hover:bg-gray-200 transition-transform transform hover:scale-105">Join the Movement</a>
+        </div>
+    </div>
+
+    <main class="pt-24 pb-20">
+        <section class="py-12 md:py-20">
             <div class="container mx-auto px-6">
-                <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-12 text-center">Checkout</h1>
-                <div class="max-w-4xl mx-auto flex flex-col md:flex-row gap-8">
-                    <!-- Order Summary -->
-                    <div class="md:w-1/2 bg-gray-900/50 rounded-2xl p-8 border border-gray-700">
-                        <h2 class="text-2xl font-bold mb-6">Order Summary</h2>
-                        <div id="cart-items"></div>
-                        <div class="border-t border-gray-700 mt-6 pt-6">
-                            <div class="flex justify-between items-center text-xl font-bold">
-                                <span>Total</span>
-                                <span id="cart-total">$0.00</span>
+                <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-12 text-center">Your Cart</h1>
+                
+                <div class="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <!-- Cart Items -->
+                    <div class="lg:col-span-2">
+                        <div id="cart-items" class="space-y-4">
+                            <!-- Cart items will be loaded here -->
+                            <div id="empty-cart-message" class="text-center py-12">
+                                <svg class="mx-auto h-12 w-12 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                </svg>
+                                <h3 class="mt-2 text-lg font-medium text-gray-300">Your cart is empty</h3>
+                                <p class="mt-1 text-gray-500">Start shopping to add items to your cart</p>
+                                <div class="mt-6">
+                                    <a href="/UltraBlack/store.html" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-black hover:bg-gray-800">
+                                        Continue Shopping
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Payment Form -->
-                    <div class="md:w-1/2">
-                        <h2 class="text-2xl font-bold mb-6">Payment Information</h2>
-                        <form>
+                    <!-- Order Summary -->
+                    <div class="lg:col-span-1">
+                        <div class="bg-gray-900/50 rounded-2xl p-6 border border-gray-700 sticky top-32">
+                            <h2 class="text-2xl font-bold mb-6">Order Summary</h2>
+                            
                             <div class="space-y-4">
-                                <input type="text" placeholder="Name on Card" class="w-full p-3 bg-gray-800 rounded-lg border border-gray-700 focus:outline-none focus:border-white">
-                                <input type="email" placeholder="Email Address" class="w-full p-3 bg-gray-800 rounded-lg border border-gray-700 focus:outline-none focus:border-white">
-                                <div class="bg-gray-800 rounded-lg border border-gray-700 p-3">Card details placeholder</div>
-                                <button type="submit" class="w-full bg-white text-black font-bold py-4 px-8 rounded-full text-lg hover:bg-gray-200">Pay Now</button>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-400">Subtotal</span>
+                                    <span id="subtotal">$0.00</span>
+                                </div>
+                                <div id="donation-row" class="hidden">
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-400">Donation</span>
+                                        <span id="donation-amount">$0.00</span>
+                                    </div>
+                                </div>
+                                <div class="border-t border-gray-700 pt-4">
+                                    <div class="flex justify-between font-bold text-lg">
+                                        <span>Total</span>
+                                        <span id="total">$0.00</span>
+                                    </div>
+                                </div>
                             </div>
-                        </form>
+
+                            <div class="mt-8">
+                                <h3 class="font-bold mb-3">Payment Information</h3>
+                                <form id="payment-form" class="space-y-4">
+                                    <div>
+                                        <label for="email" class="block text-sm font-medium text-gray-400 mb-1">Email</label>
+                                        <input type="email" id="email" required class="w-full p-3 bg-gray-800 rounded-lg border border-gray-700 focus:outline-none focus:border-white">
+                                    </div>
+                                    <div>
+                                        <label for="card" class="block text-sm font-medium text-gray-400 mb-1">Card Information</label>
+                                        <div class="bg-gray-800 rounded-lg border border-gray-700 p-3">
+                                            <div id="card-element"></div>
+                                            <div id="card-errors" role="alert" class="text-red-400 text-sm mt-2"></div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" id="submit-button" class="w-full bg-white text-black font-bold py-4 px-8 rounded-full text-lg hover:bg-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                                        Pay Now
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -76,27 +144,229 @@
     </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Cart state
+            let cart = [];
+            let donation = 0;
+
+            // Check for donation in URL
             const urlParams = new URLSearchParams(window.location.search);
-            const item = urlParams.get('item');
-            const price = urlParams.get('price');
-
-            const cartItemsContainer = document.getElementById('cart-items');
-            const cartTotalElement = document.getElementById('cart-total');
-
-            if (item && price) {
-                const priceFormatted = parseFloat(price).toFixed(2);
-                const cartItemHTML = `
-                    <div class="flex justify-between items-center">
-                        <span class="text-lg">${item}</span>
-                        <span class="text-lg">$${priceFormatted}</span>
-                    </div>
-                `;
-                cartItemsContainer.innerHTML = cartItemHTML;
-                cartTotalElement.textContent = `$${priceFormatted}`;
-            } else {
-                cartItemsContainer.innerHTML = '<p class="text-gray-400">Your cart is empty.</p>';
+            const donationAmount = parseFloat(urlParams.get('donation'));
+            
+            if (donationAmount && !isNaN(donationAmount) && donationAmount > 0) {
+                addDonation(donationAmount);
+                // Clean up URL
+                const cleanUrl = window.location.pathname;
+                window.history.replaceState({}, document.title, cleanUrl);
             }
+
+            // Load cart from localStorage
+            function loadCart() {
+                const savedCart = localStorage.getItem('cart');
+                if (savedCart) {
+                    cart = JSON.parse(savedCart);
+                    renderCart();
+                } else {
+                    // If no cart in localStorage but we have URL params, create a cart item
+                    const item = urlParams.get('item');
+                    const price = urlParams.get('price');
+                    const image = urlParams.get('image');
+                    
+                    if (item && price) {
+                        cart = [{
+                            name: item,
+                            price: parseFloat(price),
+                            image: image || '',
+                            quantity: 1
+                        }];
+                        saveCart();
+                    }
+                }
+                updateCartCount();
+            }
+
+            // Save cart to localStorage
+            function saveCart() {
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartCount();
+            }
+
+            // Update cart count in header
+            function updateCartCount() {
+                const count = cart.reduce((total, item) => total + item.quantity, 0);
+                const cartCount = document.getElementById('cart-count');
+                const mobileCartCount = document.getElementById('mobile-cart-count');
+                
+                if (cartCount) cartCount.textContent = count;
+                if (mobileCartCount) mobileCartCount.textContent = count;
+                
+                const submitButton = document.getElementById('submit-button');
+                if (submitButton) {
+                    submitButton.disabled = count === 0 && donation === 0;
+                }
+            }
+
+            // Render cart items
+            function renderCart() {
+                const cartItems = document.getElementById('cart-items');
+                const emptyCart = document.getElementById('empty-cart-message');
+                
+                if (cart.length === 0 && donation === 0) {
+                    emptyCart.classList.remove('hidden');
+                    cartItems.innerHTML = '';
+                    cartItems.appendChild(emptyCart);
+                } else {
+                    emptyCart.classList.add('hidden');
+                    let itemsHTML = '';
+                    
+                    cart.forEach((item, index) => {
+                        itemsHTML += `
+                            <div class="cart-item flex items-center p-4 bg-gray-900/50 rounded-lg border border-gray-800" data-index="${index}">
+                                ${item.image ? `<img src="${item.image}" alt="${item.name}" class="w-20 h-20 object-cover rounded">` : ''}
+                                <div class="ml-4 flex-1">
+                                    <h3 class="font-medium">${item.name}</h3>
+                                    <p class="text-gray-400">$${item.price.toFixed(2)}</p>
+                                </div>
+                                <div class="flex items-center">
+                                    <button class="quantity-btn px-2 py-1 border border-gray-700 rounded-l hover:bg-gray-800" data-action="decrease">-</button>
+                                    <span class="quantity px-3 py-1 border-t border-b border-gray-700">${item.quantity}</span>
+                                    <button class="quantity-btn px-2 py-1 border border-gray-700 rounded-r hover:bg-gray-800" data-action="increase">+</button>
+                                </div>
+                                <div class="ml-6 w-20 text-right">
+                                    <span class="font-medium">$${(item.price * item.quantity).toFixed(2)}</span>
+                                </div>
+                                <button class="remove-item ml-4 text-gray-500 hover:text-white">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        `;
+                    });
+                    
+                    cartItems.innerHTML = itemsHTML + (emptyCart.outerHTML);
+                    
+                    // Add event listeners to quantity buttons
+                    document.querySelectorAll('.quantity-btn').forEach(button => {
+                        button.addEventListener('click', (e) => {
+                            const action = e.target.getAttribute('data-action');
+                            const index = e.target.closest('.cart-item').getAttribute('data-index');
+                            updateQuantity(parseInt(index), action);
+                        });
+                    });
+                    
+                    // Add event listeners to remove buttons
+                    document.querySelectorAll('.remove-item').forEach(button => {
+                        button.addEventListener('click', (e) => {
+                            const index = e.target.closest('.cart-item').getAttribute('data-index');
+                            removeItem(parseInt(index));
+                        });
+                    });
+                }
+                
+                updateTotals();
+            }
+
+            // Update quantity
+            function updateQuantity(index, action) {
+                if (action === 'increase') {
+                    cart[index].quantity += 1;
+                } else if (action === 'decrease' && cart[index].quantity > 1) {
+                    cart[index].quantity -= 1;
+                }
+                saveCart();
+                renderCart();
+            }
+
+            // Remove item
+            function removeItem(index) {
+                cart.splice(index, 1);
+                saveCart();
+                renderCart();
+            }
+
+            // Update order totals
+            function updateTotals() {
+                const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+                const total = subtotal + donation;
+                
+                document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+                document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+                
+                // Update donation display
+                const donationRow = document.getElementById('donation-row');
+                const donationAmount = document.getElementById('donation-amount');
+                
+                if (donation > 0) {
+                    donationRow.classList.remove('hidden');
+                    donationAmount.textContent = `$${donation.toFixed(2)}`;
+                } else {
+                    donationRow.classList.add('hidden');
+                }
+                
+                // Enable/disable checkout button
+                const submitButton = document.getElementById('submit-button');
+                if (submitButton) {
+                    submitButton.disabled = cart.length === 0 && donation === 0;
+                }
+            }
+
+            // Add donation
+            function addDonation(amount) {
+                if (amount > 0) {
+                    donation = amount;
+                    updateTotals();
+                    
+                    // Show success message
+                    const donationMessage = document.createElement('div');
+                    donationMessage.className = 'bg-green-900/50 text-green-200 p-3 rounded mb-4 text-sm border border-green-800';
+                    donationMessage.textContent = `Thank you for your donation of $${amount.toFixed(2)}!`;
+                    
+                    const cartItems = document.getElementById('cart-items');
+                    if (cartItems.firstChild) {
+                        cartItems.insertBefore(donationMessage, cartItems.firstChild);
+                    } else {
+                        cartItems.appendChild(donationMessage);
+                    }
+                    
+                    // Auto-hide message after 5 seconds
+                    setTimeout(() => {
+                        donationMessage.style.opacity = '0';
+                        setTimeout(() => {
+                            donationMessage.remove();
+                        }, 300);
+                    }, 5000);
+                }
+            }
+
+            // Form submission
+            const paymentForm = document.getElementById('payment-form');
+            if (paymentForm) {
+                paymentForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    // Here you would typically process the payment
+                    // For now, we'll just show a success message
+                    alert('Payment processing would happen here!');
+                });
+            }
+
+            // Initialize Stripe Elements (you'll need to add your Stripe publishable key)
+            // This is a placeholder for Stripe integration
+            // const stripe = Stripe('your_publishable_key');
+            // const elements = stripe.elements();
+            // const cardElement = elements.create('card');
+            // cardElement.mount('#card-element');
+
+            // Initialize
+            loadCart();
         });
     </script>
 </body>
