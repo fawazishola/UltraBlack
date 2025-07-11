@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultra Black - Checkout</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0A0A0A;
+            color: #EAEAEA;
+        }
+        .glossy-header {
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navigation -->
+    <nav class="glossy-header fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-black tracking-wider">ULTRA BLACK</a>
+            <div class="hidden lg:flex items-center space-x-8">
+                <a href="Run Clubs.html" class="hover:text-white transition-colors">Run Clubs</a>
+                <a href="fitness.html" class="hover:text-white transition-colors">Fitness</a>
+                <a href="wellness.html" class="hover:text-white transition-colors">Wellness</a>
+                <a href="About.html" class="hover:text-white transition-colors">About</a>
+                <a href="store.html" class="hover:text-white transition-colors">Store</a>
+                <a href="donations.html" class="hover:text-white transition-colors">Donations</a>
+                <a href="scholarship.html" class="hover:text-white transition-colors">Scholarship</a>
+            </div>
+            <div class="hidden lg:flex items-center">
+                <a href="#" class="bg-white text-black font-bold py-3 px-6 rounded-full hover:bg-gray-200">Join the Movement</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-24">
+        <section class="py-20 md:py-32">
+            <div class="container mx-auto px-6">
+                <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-12 text-center">Checkout</h1>
+                <div class="max-w-4xl mx-auto flex flex-col md:flex-row gap-8">
+                    <!-- Order Summary -->
+                    <div class="md:w-1/2 bg-gray-900/50 rounded-2xl p-8 border border-gray-700">
+                        <h2 class="text-2xl font-bold mb-6">Order Summary</h2>
+                        <div id="cart-items"></div>
+                        <div class="border-t border-gray-700 mt-6 pt-6">
+                            <div class="flex justify-between items-center text-xl font-bold">
+                                <span>Total</span>
+                                <span id="cart-total">$0.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Form -->
+                    <div class="md:w-1/2">
+                        <h2 class="text-2xl font-bold mb-6">Payment Information</h2>
+                        <form>
+                            <div class="space-y-4">
+                                <input type="text" placeholder="Name on Card" class="w-full p-3 bg-gray-800 rounded-lg border border-gray-700 focus:outline-none focus:border-white">
+                                <input type="email" placeholder="Email Address" class="w-full p-3 bg-gray-800 rounded-lg border border-gray-700 focus:outline-none focus:border-white">
+                                <div class="bg-gray-800 rounded-lg border border-gray-700 p-3">Card details placeholder</div>
+                                <button type="submit" class="w-full bg-white text-black font-bold py-4 px-8 rounded-full text-lg hover:bg-gray-200">Pay Now</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const item = urlParams.get('item');
+            const price = urlParams.get('price');
+
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartTotalElement = document.getElementById('cart-total');
+
+            if (item && price) {
+                const priceFormatted = parseFloat(price).toFixed(2);
+                const cartItemHTML = `
+                    <div class="flex justify-between items-center">
+                        <span class="text-lg">${item}</span>
+                        <span class="text-lg">$${priceFormatted}</span>
+                    </div>
+                `;
+                cartItemsContainer.innerHTML = cartItemHTML;
+                cartTotalElement.textContent = `$${priceFormatted}`;
+            } else {
+                cartItemsContainer.innerHTML = '<p class="text-gray-400">Your cart is empty.</p>';
+            }
+        });
+    </script>
+</body>
+</html>

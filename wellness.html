@@ -179,8 +179,6 @@
                 <a href="store.html" class="premium-link text-gray-300">Store</a>
                 <a href="donations.html" class="premium-link text-gray-300">Donations</a>
                 <a href="scholarship.html" class="premium-link text-gray-300">Scholarship</a>
-            </div>
-            <div class="hidden lg:flex items-center">
                 <a href="#" class="bg-white text-black font-bold py-3 px-6 rounded-full premium-button hover:bg-gray-200 hover:scale-105">
                     Join the Movement
                 </a>
@@ -323,44 +321,54 @@
             });
 
             // --- GSAP Card Dealing Animation ---
-            ScrollTrigger.matchMedia({
-                // --- Desktop Animation (screens wider than 767px) ---
-                "(min-width: 768px)": function() {
-                    const cards = gsap.utils.toArray(".card");
-                    
-                    gsap.set(cards, { x: 0, y: 100, rotation: (i) => i * 2 });
+            let mm = gsap.matchMedia();
 
-                    const tl = gsap.timeline({
-                        scrollTrigger: {
-                            trigger: ".card-deal-container",
-                            pin: true,
-                            start: "top top",
-                            end: "+=2000",
-                            scrub: 1,
-                        }
-                    });
+            mm.add({
+                isDesktop: "(min-width: 1000px)",
+                isMobile: "(max-width: 999px)"
+            }, (context) => {
+                let { isDesktop } = context.conditions;
 
-                    const grid = { cols: 5, rows: 2, cardWidth: 150, cardHeight: 150, gap: 30 };
-                    const gridWidth = grid.cols * grid.cardWidth + (grid.cols - 1) * grid.gap;
-                    const gridHeight = grid.rows * grid.cardHeight + (grid.rows - 1) * grid.gap;
-                    const offsetX = -gridWidth / 2 + grid.cardWidth / 2;
-                    const offsetY = -gridHeight / 2 + grid.cardHeight / 2;
+                const cards = gsap.utils.toArray(".card");
+                const gridConfig = isDesktop 
+                    ? { cols: 5, rows: 2, cardWidth: 150, cardHeight: 150, gap: 30, end: "+=2000" }
+                    : { cols: 2, rows: 5, cardWidth: 120, cardHeight: 120, gap: 20, end: "+=1500" };
 
-                    cards.forEach((card, i) => {
-                        const col = i % grid.cols;
-                        const row = Math.floor(i / grid.cols);
-                        const finalX = col * (grid.cardWidth + grid.gap) + offsetX;
-                        const finalY = row * (grid.cardHeight + grid.gap) + offsetY;
-                        tl.to(card, { x: finalX, y: finalY, rotation: 0, scale: 1, ease: "power1.out" }, 0);
-                    });
-                }
-                // On mobile screens, the animation will not run.
+                gsap.set(cards, { x: 0, y: isDesktop ? 100 : 50, rotation: (i) => i * (isDesktop ? 2 : 1.5) });
+
+                const tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: ".card-deal-container",
+                        pin: true,
+                        start: "top top",
+                        end: gridConfig.end,
+                        scrub: 1,
+                    }
+                });
+
+                const gridWidth = gridConfig.cols * gridConfig.cardWidth + (gridConfig.cols - 1) * gridConfig.gap;
+                const gridHeight = gridConfig.rows * gridConfig.cardHeight + (gridConfig.rows - 1) * gridConfig.gap;
+                const offsetX = -gridWidth / 2 + gridConfig.cardWidth / 2;
+                const offsetY = -gridHeight / 2 + gridConfig.cardHeight / 2;
+
+                cards.forEach((card, i) => {
+                    const col = i % gridConfig.cols;
+                    const row = Math.floor(i / gridConfig.cols);
+                    const finalX = col * (gridConfig.cardWidth + gridConfig.gap) + offsetX;
+                    const finalY = row * (gridConfig.cardHeight + gridConfig.gap) + offsetY;
+                    tl.to(card, { x: finalX, y: finalY, rotation: 0, scale: 1, ease: "power1.out" }, 0);
+                });
+
+                // Cleanup function
+                return () => {
+                    if (tl) tl.kill();
+                    ScrollTrigger.getAll().forEach(st => st.kill());
+                    gsap.set(cards, { clearProps: "all" });
+                };
             });
-
 
             // --- Timeline Calendar Logic ---
             const timeline = document.getElementById('timeline');
-            const monthYearEl = document.querySelector('.container h2 + p'); // A bit fragile, better to add an ID
             const eventDetailsEl = document.getElementById('event-details');
             const noEventMessageEl = document.getElementById('no-event-message');
             const eventTitleEl = document.getElementById('event-title');
