@@ -125,16 +125,16 @@
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="text-2xl font-black tracking-wider premium-link">ULTRA BLACK</a>
             <div class="hidden lg:flex items-center space-x-8">
-                <a href="/UltraBlack/run-clubs.html" class="premium-link text-gray-300 hover:text-white">Run Clubs</a>
-                <a href="/UltraBlack/fitness.html" class="premium-link text-gray-300 hover:text-white">Fitness</a>
-                <a href="/UltraBlack/wellness.html" class="premium-link text-gray-300 hover:text-white">Wellness</a>
-                <a href="/UltraBlack/About.html" class="premium-link text-gray-300 hover:text-white">About</a>
-                <a href="/UltraBlack/donations.html" class="premium-link text-white font-bold">Donate</a>
-                <a href="/UltraBlack/store.html" class="premium-link text-gray-300 hover:text-white">Store</a>
-                <a href="/UltraBlack/cart.html" class="premium-link text-gray-300 hover:text-white">Cart</a>
+                <a href="/UltraBlack/run-clubs.html" class="hover:text-white transition-colors">Run Clubs</a>
+                <a href="/UltraBlack/fitness.html" class="hover:text-white transition-colors">Fitness</a>
+                <a href="/UltraBlack/wellness.html" class="hover:text-white transition-colors">Wellness</a>
+                <a href="/UltraBlack/about.html" class="hover:text-white transition-colors">About</a>
+                <a href="/UltraBlack/store.html" class="hover:text-white transition-colors">Store</a>
+                <a href="/UltraBlack/donations.html" class="hover:text-white transition-colors font-bold">Donations</a>
+                <a href="/UltraBlack/scholarship.html" class="hover:text-white transition-colors">Scholarship</a>
             </div>
-            <div class="hidden lg:flex items-center space-x-4">
-                <a href="/UltraBlack/cart.html" class="relative">
+            <div class="hidden lg:flex items-center space-x-6">
+                <a href="/UltraBlack/cart.html" class="relative text-white hover:text-gray-300 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
@@ -152,20 +152,23 @@
 
     <!-- Mobile Menu -->
     <div id="mobile-menu" class="lg:hidden fixed inset-0 bg-black/95 z-40 pt-24 hidden">
-        <div class="container mx-auto px-6 flex flex-col space-y-4">
-            <a href="/UltraBlack/run-clubs.html" class="text-2xl text-gray-300 hover:text-white transition-colors">Run Clubs</a>
-            <a href="/UltraBlack/fitness.html" class="text-2xl text-gray-300 hover:text-white transition-colors">Fitness</a>
-            <a href="/UltraBlack/wellness.html" class="text-2xl text-gray-300 hover:text-white transition-colors">Wellness</a>
-            <a href="/UltraBlack/About.html" class="text-2xl text-gray-300 hover:text-white transition-colors">About</a>
-            <a href="/UltraBlack/donations.html" class="text-2xl text-white font-bold">Donate</a>
-            <a href="/UltraBlack/store.html" class="text-2xl text-gray-300 hover:text-white transition-colors">Store</a>
-            <a href="/UltraBlack/cart.html" class="text-2xl text-gray-300 hover:text-white transition-colors flex items-center">
-                <span>Cart</span>
-                <span id="mobile-cart-count" class="ml-2 bg-white text-black rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">0</span>
+        <div class="container mx-auto px-6 flex flex-col items-center text-center space-y-6">
+            <a href="/UltraBlack/index.html" class="text-2xl premium-link text-gray-300">Home</a>
+            <a href="/UltraBlack/run-clubs.html" class="text-2xl premium-link text-gray-300">Run Clubs</a>
+            <a href="/UltraBlack/fitness.html" class="text-2xl premium-link text-gray-300">Fitness</a>
+            <a href="/UltraBlack/wellness.html" class="text-2xl premium-link text-gray-300">Wellness</a>
+            <a href="/UltraBlack/about.html" class="text-2xl premium-link text-gray-300">About</a>
+            <a href="/UltraBlack/store.html" class="text-2xl premium-link text-gray-300">Store</a>
+            <a href="/UltraBlack/donations.html" class="text-2xl premium-link text-white font-bold">Donations</a>
+            <a href="/UltraBlack/scholarship.html" class="text-2xl premium-link text-gray-300">Scholarship</a>
+            <a href="/UltraBlack/cart.html" class="text-2xl premium-link text-gray-300 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                <span id="cart-count-mobile" class="bg-white text-black rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold ml-1">0</span>
+                Cart
             </a>
-            <a href="#" class="mt-4 bg-white text-black font-bold py-3 px-6 rounded-full hover:bg-gray-200 transition-transform transform hover:scale-105 inline-block w-fit">
-                Join the Movement
-            </a>
+            <a href="#" class="mt-8 bg-white text-black font-bold py-4 px-8 rounded-full premium-button">Join the Movement</a>
         </div>
     </div>
 
@@ -322,5 +325,21 @@
             // ... (omitted for brevity, same as other pages)
         });
     </script>
+<script>
+    // Update cart count in both desktop and mobile navigation
+    function updateCartCount() {
+        let count = 0;
+        try {
+            const stored = localStorage.getItem('cartCount');
+            count = stored ? parseInt(stored, 10) : 0;
+            if (isNaN(count)) count = 0;
+        } catch (e) { count = 0; }
+        var desktop = document.getElementById('cart-count');
+        var mobile = document.getElementById('cart-count-mobile');
+        if (desktop) desktop.textContent = count;
+        if (mobile) mobile.textContent = count;
+    }
+    document.addEventListener('DOMContentLoaded', updateCartCount);
+</script>
 </body>
 </html>
