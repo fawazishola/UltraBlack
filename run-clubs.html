@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Run Clubs | Ultra Black Run Club</title>
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="Find Ultra Black Run Club locations and join our running community in cities across North America.">
+    <meta name="keywords" content="Black running clubs, running groups, local run clubs, community running, Black athletes">
+    <meta name="author" content="Ultra Black Run Club">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    
+    <style>
+        .map-container { height: 600px; border-radius: 12px; overflow: hidden; }
+        .location-card { transition: all 0.3s ease; }
+        .location-card:hover { transform: translateY(-5px); }
+        .day-active { background-color: #000000; color: white; }
+    </style>
+</head>
+<body class="antialiased bg-gray-900 text-gray-100">
+    <!-- Navigation -->
+    <nav class="bg-black/80 backdrop-blur-md fixed w-full z-50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-black">ULTRA BLACK</a>
+            <div class="hidden lg:flex items-center space-x-8">
+                <a href="Run Clubs.html" class="text-white font-bold">Run Clubs</a>
+                <a href="fitness.html" class="text-gray-400 hover:text-white">Fitness</a>
+                <a href="wellness.html" class="text-gray-400 hover:text-white">Wellness</a>
+                <a href="About.html" class="text-gray-400 hover:text-white">About</a>
+                <a href="store.html" class="text-gray-400 hover:text-white">Store</a>
+            </div>
+            <button id="mobile-menu-button" class="lg:hidden">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <main class="pt-24">
+        <!-- Hero Section -->
+        <section class="py-16 bg-black">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">Our Run Clubs</h1>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Join our community of runners in cities across North America.
+                </p>
+            </div>
+        </section>
+
+        <!-- Map Section -->
+        <section class="py-12 bg-gray-900">
+            <div class="container mx-auto px-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Location List -->
+                    <div class="space-y-6">
+                        <div class="bg-gray-800 rounded-xl p-6">
+                            <h3 class="text-xl font-bold mb-4">Filter by City</h3>
+                            <div class="relative">
+                                <input type="text" placeholder="Search cities..." class="w-full bg-gray-700 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black">
+                            </div>
+                            <div class="flex flex-wrap gap-2 mt-4" id="day-filters">
+                                <button class="day-filter px-3 py-1 rounded-full text-sm border border-gray-600" data-day="all">All Days</button>
+                                <button class="day-filter px-3 py-1 rounded-full text-sm border border-gray-600" data-day="monday">Mon</button>
+                                <button class="day-filter px-3 py-1 rounded-full text-sm border border-gray-600" data-day="tuesday">Tue</button>
+                                <button class="day-filter px-3 py-1 rounded-full text-sm border border-gray-600" data-day="wednesday">Wed</button>
+                                <button class="day-filter px-3 py-1 rounded-full text-sm border border-gray-600" data-day="thursday">Thu</button>
+                                <button class="day-filter px-3 py-1 rounded-full text-sm border border-gray-600" data-day="friday">Fri</button>
+                                <button class="day-filter px-3 py-1 rounded-full text-sm border border-gray-600" data-day="saturday">Sat</button>
+                                <button class="day-filter px-3 py-1 rounded-full text-sm border border-gray-600" data-day="sunday">Sun</button>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-4" id="location-list">
+                            <!-- Location cards will be inserted here -->
+                        </div>
+                    </div>
+                    
+                    <!-- Map -->
+                    <div class="lg:col-span-2">
+                        <div id="run-club-map" class="map-container"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Scripts -->
+    <script src="/js/main.js"></script>
+    <script src="/js/map.js"></script>
+    <script>
+        // Sample data (in a real app, this would come from an API)
+        const runClubs = [
+            {
+                id: 'toronto',
+                name: 'UBRC Toronto',
+                address: 'Trinity Bellwoods Park, Toronto, ON',
+                schedule: 'Wednesdays at 6:30 PM',
+                lat: 43.6532,
+                lng: -79.4039,
+                days: ['wednesday'],
+                distance: '5K/10K routes'
+            },
+            {
+                id: 'newyork',
+                name: 'UBRC New York',
+                address: 'Prospect Park, Brooklyn, NY',
+                schedule: 'Mondays at 7:00 PM',
+                lat: 40.6602,
+                lng: -73.9689,
+                days: ['monday'],
+                distance: '5K/10K routes'
+            },
+            {
+                id: 'atlanta',
+                name: 'UBRC Atlanta',
+                address: 'Piedmont Park, Atlanta, GA',
+                schedule: 'Tuesdays & Thursdays at 6:00 AM',
+                lat: 33.7859,
+                lng: -84.3720,
+                days: ['tuesday', 'thursday'],
+                distance: '3-6 miles'
+            }
+        ];
+
+        // Initialize the map
+        document.addEventListener('DOMContentLoaded', () => {
+            const runClubMap = new RunClubMap('run-club-map', {
+                zoom: 4,
+                center: { lat: 39.8283, lng: -98.5795 }, // Center of US
+                locations: runClubs.map(club => ({
+                    lat: club.lat,
+                    lng: club.lng,
+                    title: club.name,
+                    address: club.address,
+                    schedule: club.schedule
+                }))
+            });
+
+            // Render location list
+            const locationList = document.getElementById('location-list');
+            
+            function renderLocations(locations) {
+                locationList.innerHTML = locations.map(club => `
+                    <div class="location-card bg-gray-800 rounded-lg p-6 cursor-pointer hover:shadow-lg">
+                        <h3 class="font-bold text-lg mb-2">${club.name}</h3>
+                        <p class="text-gray-400 text-sm mb-2">${club.address}</p>
+                        <p class="text-sm text-gray-400">${club.schedule}</p>
+                        <p class="text-sm text-gray-400">${club.distance}</p>
+                    </div>
+                `).join('');
+            }
+            
+            // Initial render
+            renderLocations(runClubs);
+
+            // Filter by day
+            document.querySelectorAll('.day-filter').forEach(button => {
+                button.addEventListener('click', () => {
+                    const day = button.dataset.day;
+                    
+                    // Update active state
+                    document.querySelectorAll('.day-filter').forEach(btn => 
+                        btn.classList.toggle('day-active', btn === button)
+                    );
+                    
+                    // Filter locations
+                    const filtered = day === 'all' 
+                        ? runClubs 
+                        : runClubs.filter(club => club.days.includes(day));
+                    
+                    renderLocations(filtered);
+                    
+                    // Update map markers
+                    if (runClubMap) {
+                        runClubMap.clearMarkers();
+                        runClubMap.addMarkers(filtered.map(club => ({
+                            lat: club.lat,
+                            lng: club.lng,
+                            title: club.name,
+                            address: club.address,
+                            schedule: club.schedule
+                        })));
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

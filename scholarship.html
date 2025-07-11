@@ -94,17 +94,18 @@
     <!-- Navigation -->
     <nav class="glossy-header fixed top-0 left-0 right-0 z-50">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-black tracking-wider premium-link">ULTRA BLACK</a>
+            <a href="index.html" class="text-2xl font-black tracking-wider">ULTRA BLACK</a>
             <div class="hidden lg:flex items-center space-x-8">
-                <a href="#" class="premium-link text-gray-300">Run Clubs</a>
-                <a href="#" class="premium-link text-gray-300">Fitness</a>
-                <a href="#" class="premium-link text-gray-300">Wellness</a>
-                <a href="#" class="premium-link text-gray-300">About</a>
-                <a href="#" class="premium-link text-white font-bold">Scholarship</a>
-                <a href="#" class="premium-link text-gray-300">Store</a>
+                <a href="Run Clubs.html" class="text-gray-400 hover:text-white transition-colors">Run Clubs</a>
+                <a href="fitness.html" class="text-gray-400 hover:text-white transition-colors">Fitness</a>
+                <a href="wellness.html" class="text-gray-400 hover:text-white transition-colors">Wellness</a>
+                <a href="About.html" class="text-gray-400 hover:text-white transition-colors">About</a>
+                <a href="store.html" class="text-gray-400 hover:text-white transition-colors">Store</a>
+                <a href="donations.html" class="text-gray-400 hover:text-white transition-colors">Donations</a>
+                <a href="scholarship.html" class="text-white font-bold">Scholarship</a>
             </div>
             <div class="hidden lg:flex items-center">
-                <a href="#" class="bg-white text-black font-bold py-3 px-6 rounded-full premium-button hover:bg-gray-200 hover:scale-105">
+                <a href="#" class="bg-white text-black font-bold py-3 px-6 rounded-full hover:bg-gray-200 transition-transform transform hover:scale-105">
                     Join the Movement
                 </a>
             </div>
@@ -113,6 +114,20 @@
             </button>
         </div>
     </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden lg:hidden fixed inset-0 bg-black/95 z-40 pt-24">
+        <div class="container mx-auto px-6 flex flex-col items-center text-center space-y-6">
+            <a href="Run Clubs.html" class="text-2xl text-gray-400 hover:text-white transition-colors">Run Clubs</a>
+            <a href="fitness.html" class="text-2xl text-gray-400 hover:text-white transition-colors">Fitness</a>
+            <a href="wellness.html" class="text-2xl text-gray-400 hover:text-white transition-colors">Wellness</a>
+            <a href="About.html" class="text-2xl text-gray-400 hover:text-white transition-colors">About</a>
+            <a href="store.html" class="text-2xl text-gray-400 hover:text-white transition-colors">Store</a>
+            <a href="donations.html" class="text-2xl text-gray-400 hover:text-white transition-colors">Donations</a>
+            <a href="scholarship.html" class="text-2xl text-white font-bold">Scholarship</a>
+            <a href="#" class="mt-8 bg-white text-black font-bold py-4 px-8 rounded-full hover:bg-gray-200 transition-transform transform hover:scale-105">Join the Movement</a>
+        </div>
+    </div>
 
     <main>
         <!-- Hero Section -->
@@ -243,8 +258,41 @@
                 scrollTrigger: { trigger: "#why-give", start: "top 75%" }
             });
 
-            // --- Footer Time ---
-            // ... (omitted for brevity)
+            // Mobile Menu Toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            let isMenuOpen = false;
+
+            mobileMenuButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                isMenuOpen = !isMenuOpen;
+                if (isMenuOpen) {
+                    mobileMenu.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    mobileMenu.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }
+            });
+
+            // Close menu when clicking on a link
+            const mobileLinks = mobileMenu.querySelectorAll('a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    document.body.style.overflow = '';
+                    isMenuOpen = false;
+                });
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (isMenuOpen && !mobileMenu.contains(e.target) && e.target !== mobileMenuButton && !mobileMenuButton.contains(e.target)) {
+                    mobileMenu.classList.add('hidden');
+                    document.body.style.overflow = '';
+                    isMenuOpen = false;
+                }
+            });
         });
     </script>
 </body>
