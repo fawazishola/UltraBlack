@@ -218,9 +218,35 @@
                                 <button class="amount-btn p-3 rounded-md font-bold">$100</button>
                                 <input type="number" placeholder="Custom" class="custom-amount-input" id="custom-amount">
                             </div>
-                            <a href="#" class="w-full block text-center bg-white text-black font-bold py-4 px-10 rounded-full premium-button hover:bg-gray-200 hover:scale-105">
-                                Donate Now
-                            </a>
+                            <a id="donate-now-btn" href="#" class="w-full block text-center bg-white text-black font-bold py-4 px-10 rounded-full premium-button hover:bg-gray-200 hover:scale-105">
+    Donate Now
+</a>
+<script>
+// Donation Amount Logic (append to existing script if needed)
+document.addEventListener('DOMContentLoaded', function () {
+    const donateNowBtn = document.getElementById('donate-now-btn');
+    const donationCard = document.querySelector('.donation-card');
+    const amountButtons = donationCard.querySelectorAll('.amount-btn');
+    const customAmountInput = donationCard.querySelector('#custom-amount');
+    donateNowBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        let selectedAmount = null;
+        amountButtons.forEach(btn => {
+            if (btn.classList.contains('selected')) {
+                selectedAmount = btn.textContent.replace(/[^\d.]/g, '');
+            }
+        });
+        if (!selectedAmount && customAmountInput.value) {
+            selectedAmount = customAmountInput.value;
+        }
+        if (!selectedAmount || isNaN(selectedAmount) || Number(selectedAmount) <= 0) {
+            alert('Please select or enter a valid donation amount.');
+            return;
+        }
+        window.location.href = `cart.html?amount=${encodeURIComponent(selectedAmount)}`;
+    });
+});
+</script>
                         </div>
                     </div>
                 </div>
@@ -258,7 +284,47 @@
     </main>
 
     <!-- Footer -->
+    <!-- Redesigned Footer -->
     <footer class="bg-black text-gray-400 pt-16 pb-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-10 gap-8 mb-20">
+                <div class="md:col-span-3">
+                    <h4 class="text-lg font-bold text-white mb-4">Run the culture.</h4>
+                    <p>Toronto—Canada</p>
+                    <p id="footer-time"></p>
+                </div>
+                <div class="md:col-span-3">
+                    <p class="mb-4">Sign up for our newsletter:</p>
+                    <input type="email" placeholder="Your Email" class="footer-input">
+                </div>
+                <div class="md:col-span-2">
+                    <ul class="space-y-2">
+                        <li><a href="#" class="premium-link">Run Clubs</a></li>
+                        <li><a href="#" class="premium-link">Fitness</a></li>
+                        <li><a href="#" class="premium-link">Wellness</a></li>
+                        <li><a href="#" class="premium-link">About</a></li>
+                    </ul>
+                </div>
+                <div class="md:col-span-2">
+                    <ul class="space-y-2">
+                        <li><a href="#" class="premium-link">Store</a></li>
+                        <li><a href="#" class="premium-link">Contact</a></li>
+                        <li><a href="#" class="premium-link">Instagram &rarr;</a></li>
+                        <li><a href="#" class="premium-link">TikTok &rarr;</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 flex justify-between items-end">
+                <div class="flex space-x-4 text-sm">
+                    <p>&copy; 2025</p>
+                    <a href="#" class="premium-link">Terms of use</a>
+                </div>
+                <div class="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-none whitespace-nowrap">
+                    ULTRA BLACK
+                </div>
+            </div>
+        </div>
+    </footer>
         <!-- ... same as other pages ... -->
     </footer>
 
