@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Ultra Black Run Club</title>
+    <meta name="description" content="Learn the story behind Ultra Black. Our mission, our vision, and the team dedicated to empowering the Black community through wellness and movement.">
+    <meta name="keywords" content="about us, Black-led organization, community leaders, our mission, our story, non-profit">
+    <meta name="author" content="Ultra Black Run Club">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0A0A0A">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://ultrablack.run/about" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ultrablack.run/about">
+    <meta property="og:title" content="About Us | Ultra Black Run Club">
+    <meta property="og:description" content="Learn the story behind Ultra Black. Our mission, our vision, and the team dedicated to empowering the Black community through wellness and movement.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&h=630&fit=crop">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://ultrablack.run/about">
+    <meta name="twitter:title" content="About Us | Ultra Black Run Club">
+    <meta name="twitter:description" content="Learn the story behind Ultra Black. Our mission, our vision, and the team dedicated to empowering the Black community through wellness and movement.">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&h=630&fit=crop">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- Swiper.js CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+    <!-- GSAP (GreenSock Animation Platform) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0A0A0A;
+            color: #EAEAEA;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .glossy-header {
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .hero-bg {
+            background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        /* Premium Link/Button Styles */
+        .premium-link { transition: color 0.3s ease; }
+        .premium-link:hover { color: #FFFFFF; }
+        .premium-button { transition: background-color 0.3s ease, transform 0.3s ease; }
+
+        /* Swiper Carousel Styles */
+        .swiper-container {
+            width: 100%;
+            padding-top: 20px;
+            padding-bottom: 50px;
+        }
+        .swiper-slide {
+            background-position: center;
+            background-size: cover;
+            width: 300px;
+            text-align: center;
+        }
+        .swiper-pagination-bullet {
+            background: #888;
+            opacity: 1;
+        }
+        .swiper-pagination-bullet-active {
+            background: #fff;
+        }
+        .swiper-button-next, .swiper-button-prev {
+            color: #fff;
+            transform: scale(0.7);
+        }
+        .team-member-card {
+            background-color: #111827; /* gray-900 */
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        .team-member-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        /* Form Styles */
+        .form-input {
+            background-color: #1F2937; /* gray-800 */
+            border: 1px solid #374151; /* gray-700 */
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            width: 100%;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #3B82F6; /* blue-500 */
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+        }
+        
+        /* Footer Styles */
+        .footer-input {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #4B5563;
+            color: white;
+            padding: 0.5rem 0;
+            width: 100%;
+            transition: border-color 0.3s ease;
+        }
+        .footer-input:focus {
+            outline: none;
+            border-bottom-color: white;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navigation -->
+    <nav class="glossy-header fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-black tracking-wider premium-link">ULTRA BLACK</a>
+            <div class="hidden lg:flex items-center space-x-8">
+                <a href="about.html" class="premium-link text-white">About Us</a>
+                <a href="#" class="premium-link text-gray-300">Chapters</a>
+                <a href="store.html" class="premium-link text-gray-300">Store</a>
+                <a href="donation.html" class="premium-link text-gray-300">Donations</a>
+                <a href="scholarship.html" class="premium-link text-gray-300">Scholarship</a>
+            </div>
+            <div class="hidden lg:flex items-center space-x-6">
+                <a href="#" class="relative text-white hover:text-gray-300 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-white text-black rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">0</span>
+                </a>
+                <a href="#" class="bg-white text-black font-bold py-3 px-6 rounded-full premium-button hover:bg-gray-200 hover:scale-105">
+                    Join the Movement
+                </a>
+            </div>
+            <button id="mobile-menu-button" class="lg:hidden flex items-center p-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden lg:hidden fixed inset-0 bg-black/95 z-40 pt-24">
+        <!-- ... same as other pages ... -->
+    </div>
+
+    <main>
+        <!-- Hero Section -->
+        <header class="h-[60vh] relative flex items-center justify-center text-center text-white hero-bg">
+            <div class="absolute inset-0 bg-black/60"></div>
+            <div class="relative z-10 px-6">
+                <h1 id="hero-title" class="text-5xl md:text-7xl font-black uppercase tracking-tighter">Our Story</h1>
+            </div>
+        </header>
+
+        <!-- About Us Block -->
+        <section id="about-us-section" class="py-20 md:py-32 bg-black">
+            <div class="container mx-auto px-6 max-w-4xl">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="text-4xl font-bold mb-4">Our Mission</h2>
+                        <p class="text-lg text-gray-300 leading-relaxed">
+                            We believe that resilience, discipline, and community are the necessary ingredients for success. By creating engaging events and experiences, we serve as a safe and accountable wellness space for the Black community.
+                        </p>
+                    </div>
+                    <div>
+                        <h2 class="text-4xl font-bold mb-4">Our Vision</h2>
+                        <p class="text-lg text-gray-300 leading-relaxed">
+                           We aspire to be the catalyst for the changes we hope to see in our people. By collaborating with other organizations, we aim to increase diversity in fitness and wellness spaces across Canada.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Meet the Team Section -->
+        <section id="meet-the-team-section" class="py-20 md:py-32 bg-gray-900">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold">Meet The Team</h2>
+                    <p class="text-lg text-gray-400 mt-4">The leaders driving the movement.</p>
+                </div>
+                <!-- Swiper -->
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <!-- Slide 1 -->
+                        <div class="swiper-slide">
+                            <div class="team-member-card">
+                                <img src="https://placehold.co/400x400/111827/FFFFFF?text=Team+1" alt="Team Member 1">
+                                <div class="p-6">
+                                    <h3 class="text-xl font-bold text-white">Alex Chen</h3>
+                                    <p class="text-gray-400">Founder & CEO</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 2 -->
+                        <div class="swiper-slide">
+                            <div class="team-member-card">
+                                <img src="https://placehold.co/400x400/111827/FFFFFF?text=Team+2" alt="Team Member 2">
+                                <div class="p-6">
+                                    <h3 class="text-xl font-bold text-white">Jasmine Reid</h3>
+                                    <p class="text-gray-400">Head of Community</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 3 -->
+                        <div class="swiper-slide">
+                            <div class="team-member-card">
+                                <img src="https://placehold.co/400x400/111827/FFFFFF?text=Team+3" alt="Team Member 3">
+                                <div class="p-6">
+                                    <h3 class="text-xl font-bold text-white">Marcus Cole</h3>
+                                    <p class="text-gray-400">Lead Run Captain</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 4 -->
+                        <div class="swiper-slide">
+                            <div class="team-member-card">
+                                <img src="https://placehold.co/400x400/111827/FFFFFF?text=Team+4" alt="Team Member 4">
+                                <div class="p-6">
+                                    <h3 class="text-xl font-bold text-white">Simone Adebayo</h3>
+                                    <p class="text-gray-400">Wellness Director</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 5 -->
+                        <div class="swiper-slide">
+                            <div class="team-member-card">
+                                <img src="https://placehold.co/400x400/111827/FFFFFF?text=Team+5" alt="Team Member 5">
+                                <div class="p-6">
+                                    <h3 class="text-xl font-bold text-white">David Lee</h3>
+                                    <p class="text-gray-400">Partnerships Lead</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 6 -->
+                        <div class="swiper-slide">
+                             <div class="team-member-card">
+                                <img src="https://placehold.co/400x400/111827/FFFFFF?text=Team+6" alt="Team Member 6">
+                                <div class="p-6">
+                                    <h3 class="text-xl font-bold text-white">Chloe Kim</h3>
+                                    <p class="text-gray-400">Fitness Coordinator</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 7 -->
+                        <div class="swiper-slide">
+                             <div class="team-member-card">
+                                <img src="https://placehold.co/400x400/111827/FFFFFF?text=Team+7" alt="Team Member 7">
+                                <div class="p-6">
+                                    <h3 class="text-xl font-bold text-white">Andre Jones</h3>
+                                    <p class="text-gray-400">Events Manager</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 8 -->
+                        <div class="swiper-slide">
+                             <div class="team-member-card">
+                                <img src="https://placehold.co/400x400/111827/FFFFFF?text=Team+8" alt="Team Member 8">
+                                <div class="p-6">
+                                    <h3 class="text-xl font-bold text-white">Maria Garcia</h3>
+                                    <p class="text-gray-400">Creative Director</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination"></div>
+                    <!-- Add Navigation -->
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Form Section -->
+        <section id="contact-form-section" class="py-20 md:py-32 bg-black">
+            <div class="container mx-auto px-6 max-w-3xl text-center">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Get In Touch</h2>
+                <p class="text-lg text-gray-400 mb-12">Have a question or want to collaborate? Drop us a line.</p>
+                <form action="#" method="POST" class="space-y-6 text-left">
+                    <div>
+                        <label for="name" class="sr-only">Name</label>
+                        <input type="text" name="name" id="name" placeholder="Your Name" class="form-input">
+                    </div>
+                    <div>
+                        <label for="email" class="sr-only">Email</label>
+                        <input type="email" name="email" id="email" placeholder="Your Email" class="form-input">
+                    </div>
+                    <div>
+                        <label for="message" class="sr-only">Message</label>
+                        <textarea name="message" id="message" rows="6" placeholder="Your Message" class="form-input"></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="bg-white text-black font-bold py-4 px-10 rounded-full premium-button hover:bg-gray-200 hover:scale-105">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black text-gray-400 pt-16 pb-12">
+        <!-- ... same as other pages ... -->
+    </footer>
+
+    <!-- Swiper.js JS -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // --- Mobile Menu ---
+            // ... same as other pages ...
+
+            // --- GSAP Animations ---
+            gsap.from("#hero-title", { opacity: 0, y: 50, duration: 1, ease: "power3.out" });
+            
+            gsap.from("#about-us-section > div > div", {
+                opacity: 0,
+                y: 50,
+                duration: 1,
+                stagger: 0.2,
+                ease: "power3.out",
+                scrollTrigger: { trigger: "#about-us-section", start: "top 80%" }
+            });
+            
+            gsap.from("#meet-the-team-section > div > div", {
+                opacity: 0,
+                y: 50,
+                duration: 1,
+                ease: "power3.out",
+                scrollTrigger: { trigger: "#meet-the-team-section", start: "top 80%" }
+            });
+
+            gsap.from("#contact-form-section > div > *", {
+                opacity: 0,
+                y: 50,
+                duration: 1,
+                stagger: 0.15,
+                ease: "power3.out",
+                scrollTrigger: { trigger: "#contact-form-section", start: "top 80%" }
+            });
+
+            // --- Swiper Initialization ---
+            var swiper = new Swiper('.swiper-container', {
+                effect: 'coverflow',
+                grabCursor: true,
+                centeredSlides: true,
+                slidesPerView: 'auto',
+                loop: true,
+                coverflowEffect: {
+                    rotate: 50,
+                    stretch: 0,
+                    depth: 100,
+                    modifier: 1,
+                    slideShadows: true,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                breakpoints: {
+                    // when window width is >= 768px
+                    768: {
+                        slidesPerView: 3,
+                    }
+                }
+            });
+
+            // --- Footer Time ---
+            // ... same as other pages ...
+        });
+    </script>
+</body>
+</html>

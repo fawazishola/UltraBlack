@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop | Ultra Black Run Club</title>
+    <meta name="description" content="Shop the official Ultra Black collection. High-quality apparel and gear designed for the movement. Hoodies, tees, headwear, and more.">
+    <meta name="keywords" content="running apparel, sportswear, Black-owned, athletic wear, run club merchandise, hoodies, t-shirts">
+    <meta name="author" content="Ultra Black Run Club">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0A0A0A">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://ultrablack.run/shop" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ultrablack.run/shop">
+    <meta property="og:title" content="Shop the Movement | Ultra Black Run Club">
+    <meta property="og:description" content="Official Ultra Black collection. High-quality apparel and gear designed for the movement.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=1200&h=630&fit=crop">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://ultrablack.run/shop">
+    <meta name="twitter:title" content="Shop the Movement | Ultra Black Run Club">
+    <meta name="twitter:description" content="Official Ultra Black collection. High-quality apparel and gear designed for the movement.">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=1200&h=630&fit=crop">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- GSAP (GreenSock Animation Platform) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0A0A0A;
+            color: #EAEAEA;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .glossy-header {
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .hero-bg {
+            background-image: url('https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        /* Premium Link/Button Styles */
+        .premium-link { transition: color 0.3s ease; }
+        .premium-link:hover { color: #FFFFFF; }
+        .premium-button { transition: background-color 0.3s ease, transform 0.3s ease; }
+
+        /* Product Card Styles */
+        .product-card {
+            background-color: #111827; /* gray-900 */
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid transparent;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.5);
+            border-color: #374151;
+        }
+        .product-image-container {
+            position: relative;
+            background-color: #1F2937;
+        }
+        .product-image {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .product-card:hover .product-image-hover {
+            opacity: 1;
+        }
+        .product-image-hover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+        }
+
+        /* Sharper Filter Styles */
+        .filter-btn {
+            background-color: transparent;
+            border: none;
+            color: #9CA3AF; /* gray-400 */
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+        }
+        .filter-btn:hover {
+            color: #FFFFFF;
+        }
+        .filter-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #FFFFFF;
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.3s ease;
+        }
+        .filter-btn.active {
+            color: #FFFFFF;
+        }
+        .filter-btn.active::after {
+            transform: scaleX(1);
+        }
+        
+        /* Footer Styles */
+        .footer-input {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #4B5563;
+            color: white;
+            padding: 0.5rem 0;
+            width: 100%;
+            transition: border-color 0.3s ease;
+        }
+        .footer-input:focus {
+            outline: none;
+            border-bottom-color: white;
+        }
+        
+        #hero-title {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+        }
+        #hero-title .line-inner {
+             display: inline-block;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navigation -->
+    <nav class="glossy-header fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-black tracking-wider premium-link">ULTRA BLACK</a>
+            <div class="hidden lg:flex items-center space-x-8">
+                <a href="#" class="premium-link text-gray-300">Run Clubs</a>
+                <a href="#" class="premium-link text-gray-300">Fitness</a>
+                <a href="#" class="premium-link text-gray-300">Wellness</a>
+                <a href="#" class="premium-link text-gray-300">About</a>
+                <a href="#" class="premium-link text-white font-bold">Store</a>
+                <a href="#" class="premium-link text-gray-300">Donations</a>
+                <a href="#" class="premium-link text-gray-300">Scholarship</a>
+            </div>
+            <div class="hidden lg:flex items-center space-x-6">
+                <a href="#" class="relative text-white hover:text-gray-300 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-white text-black rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">0</span>
+                </a>
+                <a href="#" class="bg-white text-black font-bold py-3 px-6 rounded-full premium-button hover:bg-gray-200 hover:scale-105">
+                    Join the Movement
+                </a>
+            </div>
+            <button id="mobile-menu-button" class="lg:hidden flex items-center p-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <header class="h-[50vh] relative flex items-center justify-center text-center text-white hero-bg">
+            <div class="absolute inset-0 bg-black/60"></div>
+            <div class="relative z-10 px-6">
+                <h1 id="hero-title" class="text-5xl md:text-7xl font-black uppercase tracking-tighter">
+                    <span class="line-inner">Wear the Movement</span>
+                </h1>
+            </div>
+        </header>
+
+        <!-- Product Grid Section -->
+        <section id="product-section" class="py-20 md:py-32 bg-black">
+            <div class="container mx-auto px-6">
+                <!-- Filters -->
+                <div class="flex justify-center flex-wrap gap-8 mb-16">
+                    <button class="filter-btn active text-lg font-semibold" data-filter="all">All</button>
+                    <button class="filter-btn text-lg font-semibold" data-filter="hoodie">Hoodies</button>
+                    <button class="filter-btn text-lg font-semibold" data-filter="tee">Tees</button>
+                    <button class="filter-btn text-lg font-semibold" data-filter="headwear">Headwear</button>
+                </div>
+
+                <!-- Product Grid -->
+                <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    <!-- Product 1 -->
+                    <div class="product-card" data-category="hoodie">
+                        <a href="#">
+                            <div class="product-image-container">
+                                <img class="product-image" src="https://placehold.co/600x800/111827/FFFFFF?text=Hoodie+Front" alt="Black Hoodie Front">
+                                <img class="product-image product-image-hover" src="https://placehold.co/600x800/1F2937/FFFFFF?text=Hoodie+Back" alt="Black Hoodie Back">
+                            </div>
+                            <div class="p-6 text-center">
+                                <h3 class="text-xl font-bold text-white">Culture Hoodie</h3>
+                                <p class="text-gray-400 mt-1">$85.00</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Product 2 -->
+                    <div class="product-card" data-category="tee">
+                         <a href="#">
+                            <div class="product-image-container">
+                                <img class="product-image" src="https://placehold.co/600x800/111827/FFFFFF?text=Tee+Front" alt="T-shirt Front">
+                                <img class="product-image product-image-hover" src="https://placehold.co/600x800/1F2937/FFFFFF?text=Tee+Back" alt="T-shirt Back">
+                            </div>
+                            <div class="p-6 text-center">
+                                <h3 class="text-xl font-bold text-white">Movement Tee</h3>
+                                <p class="text-gray-400 mt-1">$45.00</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Product 3 -->
+                    <div class="product-card" data-category="headwear">
+                         <a href="#">
+                            <div class="product-image-container">
+                                <img class="product-image" src="https://placehold.co/600x800/111827/FFFFFF?text=Hat+Front" alt="Hat Front">
+                                <img class="product-image product-image-hover" src="https://placehold.co/600x800/1F2937/FFFFFF?text=Hat+Side" alt="Hat Side">
+                            </div>
+                            <div class="p-6 text-center">
+                                <h3 class="text-xl font-bold text-white">Runner's Cap</h3>
+                                <p class="text-gray-400 mt-1">$35.00</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Product 4 -->
+                    <div class="product-card" data-category="hoodie">
+                        <a href="#">
+                            <div class="product-image-container">
+                                <img class="product-image" src="https://placehold.co/600x800/111827/FFFFFF?text=Hoodie+2" alt="Grey Hoodie Front">
+                                <img class="product-image product-image-hover" src="https://placehold.co/600x800/1F2937/FFFFFF?text=Hoodie+2+Back" alt="Grey Hoodie Back">
+                            </div>
+                            <div class="p-6 text-center">
+                                <h3 class="text-xl font-bold text-white">Resilience Hoodie</h3>
+                                <p class="text-gray-400 mt-1">$85.00</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Add more products as needed -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black text-gray-400 pt-16 pb-12">
+        <!-- ... same as other pages ... -->
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // --- Mobile Menu ---
+            // ... (omitted for brevity)
+
+            // --- GSAP Animations ---
+            gsap.from(".line-inner", {
+                y: "100%",
+                duration: 1,
+                ease: "power4.out",
+                delay: 0.2,
+            });
+
+            const productGrid = document.getElementById('product-grid');
+            gsap.from(".product-card", {
+                opacity: 0,
+                y: 50,
+                duration: 0.8,
+                stagger: {
+                    each: 0.1,
+                    from: "start",
+                    grid: "auto"
+                },
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: "#product-grid",
+                    start: "top 85%",
+                }
+            });
+
+            // --- Filter Logic ---
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const productCards = document.querySelectorAll('.product-card');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    const filter = button.dataset.filter;
+                    
+                    productCards.forEach(card => {
+                        const category = card.dataset.category;
+                        const shouldShow = filter === 'all' || filter === category;
+                        
+                        // Use a timeline for better control
+                        const tl = gsap.timeline();
+                        if (shouldShow) {
+                            tl.set(card, { display: 'block' })
+                              .to(card, { duration: 0.4, opacity: 1, scale: 1, ease: 'power3.out' });
+                        } else {
+                            tl.to(card, { duration: 0.4, opacity: 0, scale: 0.95, ease: 'power3.in', onComplete: () => {
+                                card.style.display = 'none';
+                            }});
+                        }
+                    });
+                });
+            });
+
+            // --- Footer Time ---
+            // ... (omitted for brevity)
+        });
+    </script>
+</body>
+</html>

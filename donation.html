@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO and Metadata -->
+    <title>Donate | Ultra Black Run Club</title>
+    <meta name="description" content="Support the Ultra Black Run Club movement. Your donation fuels our mission, funds scholarships, and empowers our community of Black runners and wellness enthusiasts.">
+    <meta name="keywords" content="donate, fundraiser, Black community, running scholarship, support Black athletes, non-profit donation">
+    <meta name="author" content="Ultra Black Run Club">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0A0A0A">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://ultrablack.run/donate" />
+    
+    <!-- Favicon (assuming favicons are in the root directory) -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ultrablack.run/donate">
+    <meta property="og:title" content="Support the Movement | Ultra Black Run Club">
+    <meta property="og:description" content="Your donation fuels our mission, funds scholarships, and empowers our community of Black runners and wellness enthusiasts.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?q=80&w=1200&h=630&fit=crop">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://ultrablack.run/donate">
+    <meta name="twitter:title" content="Support the Movement | Ultra Black Run Club">
+    <meta name="twitter:description" content="Your donation fuels our mission, funds scholarships, and empowers our community of Black runners and wellness enthusiasts.">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?q=80&w=1200&h=630&fit=crop">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Donate to Ultra Black Run Club",
+        "url": "https://ultrablack.run/donate",
+        "description": "Support the Ultra Black Run Club movement. Your donation fuels our mission, funds scholarships, and empowers our community of Black runners and wellness enthusiasts.",
+        "mainEntity": {
+            "@type": "Organization",
+            "name": "Ultra Black Run Club",
+            "url": "https://ultrablack.run",
+            "logo": "https://ultrablack.run/images/logo.png"
+        }
+    }
+    </script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- GSAP (GreenSock Animation Platform) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0A0A0A;
+            color: #EAEAEA;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .glossy-header {
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .hero-bg {
+            background-image: url('https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        /* Premium Link/Button Styles */
+        .premium-link { transition: color 0.3s ease; }
+        .premium-link:hover { color: #FFFFFF; }
+        .premium-button { transition: background-color 0.3s ease, transform 0.3s ease; }
+
+        /* Donation Card Styles */
+        .donation-card {
+            background-color: #111827; /* gray-900 */
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid transparent;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+        .donation-card:hover {
+            transform: translateY(-5px);
+            border-color: #374151; /* gray-700 */
+        }
+        .donation-card img {
+            height: 250px;
+            width: 100%;
+            object-fit: cover;
+        }
+        .amount-btn {
+            background-color: #1F2937; /* gray-800 */
+            border: 1px solid #374151; /* gray-700 */
+            transition: all 0.2s ease-in-out;
+        }
+        .amount-btn:hover {
+            background-color: #374151;
+        }
+        .amount-btn.selected {
+            background-color: #FFFFFF;
+            color: #0A0A0A;
+            border-color: #FFFFFF;
+        }
+        .custom-amount-input {
+            background-color: #1F2937;
+            border: 1px solid #374151;
+            color: white;
+            text-align: center;
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            font-weight: bold;
+        }
+        .custom-amount-input:focus {
+            outline: none;
+            border-color: #FFFFFF;
+        }
+        
+        /* Footer Styles */
+        .footer-input {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #4B5563;
+            color: white;
+            padding: 0.5rem 0;
+            width: 100%;
+            transition: border-color 0.3s ease;
+        }
+        .footer-input:focus {
+            outline: none;
+            border-bottom-color: white;
+        }
+
+        /* New Impact Pillar Styles */
+        .impact-pillar {
+            border-top: 1px solid #374151; /* gray-700 */
+            padding-top: 1.5rem;
+            position: relative;
+        }
+        .impact-pillar-number {
+            position: absolute;
+            top: 1.5rem;
+            left: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #4B5563; /* gray-600 */
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navigation -->
+    <nav class="glossy-header fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-black tracking-wider premium-link">ULTRA BLACK</a>
+            <div class="hidden lg:flex items-center space-x-8">
+                <a href="#" class="premium-link text-gray-300">Run Clubs</a>
+                <a href="#" class="premium-link text-gray-300">Fitness</a>
+                <a href="#" class="premium-link text-gray-300">Wellness</a>
+                <a href="#" class="premium-link text-gray-300">About</a>
+                <a href="#" class="premium-link text-white font-bold">Donate</a>
+                <a href="#" class="premium-link text-gray-300">Store</a>
+            </div>
+            <div class="hidden lg:flex items-center">
+                <a href="#" class="bg-white text-black font-bold py-3 px-6 rounded-full premium-button hover:bg-gray-200 hover:scale-105">
+                    Join the Movement
+                </a>
+            </div>
+            <button id="mobile-menu-button" class="lg:hidden flex items-center p-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <header class="h-[60vh] relative flex items-center justify-center text-center text-white hero-bg">
+            <div class="absolute inset-0 bg-black/60"></div>
+            <div class="relative z-10 px-6">
+                <h1 id="hero-title" class="text-5xl md:text-7xl font-black uppercase tracking-tighter">Support the Movement</h1>
+                <p id="hero-subtitle" class="text-lg md:text-xl text-gray-200 mt-4 max-w-2xl mx-auto">Your contribution fuels our mission and empowers our community.</p>
+            </div>
+        </header>
+
+        <!-- Donation Options Section -->
+        <section id="donation-options" class="py-20 md:py-32 bg-black">
+            <div class="container mx-auto px-6">
+                <div class="max-w-2xl mx-auto">
+                    <!-- Single Donation Card -->
+                    <div class="donation-card">
+                        <img src="https://images.unsplash.com/photo-1571019614242-c5c5792c4b64?q=80&w=2070&auto=format&fit=crop" alt="Group of runners">
+                        <div class="p-8">
+                            <h2 class="text-3xl font-bold mb-4">Run to Montreal Fundraiser</h2>
+                            <p class="text-gray-300 mb-6">Help get our team to the Montreal Marathon! Your support covers travel, accommodation, and race fees. All proceeds also directly fund the <strong class="text-white">Ultra Black Scholarship</strong>, investing in the next generation of leaders.</p>
+                            <div class="grid grid-cols-2 gap-4 mb-6">
+                                <button class="amount-btn p-3 rounded-md font-bold">$25</button>
+                                <button class="amount-btn p-3 rounded-md font-bold selected">$50</button>
+                                <button class="amount-btn p-3 rounded-md font-bold">$100</button>
+                                <input type="number" placeholder="Custom" class="custom-amount-input" id="custom-amount">
+                            </div>
+                            <a href="#" class="w-full block text-center bg-white text-black font-bold py-4 px-10 rounded-full premium-button hover:bg-gray-200 hover:scale-105">
+                                Donate Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Give Section -->
+        <section id="why-give" class="py-20 md:py-32 bg-gray-900">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold">Your Impact</h2>
+                </div>
+                <div class="max-w-4xl mx-auto grid md:grid-cols-3 gap-12 text-left">
+                    <!-- Pillar 1 -->
+                    <div class="impact-pillar">
+                        <span class="impact-pillar-number">01</span>
+                        <h3 class="text-2xl font-bold mb-4 pl-10">Access</h3>
+                        <p class="text-gray-400 pl-10">Your gift removes financial barriers, providing access to wellness resources, coaching, and life-changing experiences for our community.</p>
+                    </div>
+                    <!-- Pillar 2 -->
+                    <div class="impact-pillar">
+                        <span class="impact-pillar-number">02</span>
+                        <h3 class="text-2xl font-bold mb-4 pl-10">Mentorship</h3>
+                        <p class="text-gray-400 pl-10">You help us build a network of support, connecting members with leaders and peers who inspire discipline and resilience.</p>
+                    </div>
+                    <!-- Pillar 3 -->
+                    <div class="impact-pillar">
+                        <span class="impact-pillar-number">03</span>
+                        <h3 class="text-2xl font-bold mb-4 pl-10">Legacy</h3>
+                        <p class="text-gray-400 pl-10">You invest in a sustainable future, empowering us to be the catalyst for change and build a healthier, stronger community for generations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black text-gray-400 pt-16 pb-12">
+        <!-- ... same as other pages ... -->
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // --- Mobile Menu ---
+            // ... (omitted for brevity, same as other pages)
+
+            // --- GSAP Animations ---
+            gsap.from(["#hero-title", "#hero-subtitle"], {
+                opacity: 0,
+                y: 50,
+                duration: 1,
+                stagger: 0.2,
+                ease: "power3.out"
+            });
+            
+            gsap.from(".donation-card", {
+                opacity: 0,
+                y: 50,
+                duration: 1,
+                ease: "power3.out",
+                scrollTrigger: { trigger: "#donation-options", start: "top 80%" }
+            });
+
+            // New "Roll-in" animation for impact pillars
+            gsap.from(".impact-pillar", {
+                opacity: 0,
+                y: 50,
+                rotationX: -45,
+                transformOrigin: "top center",
+                duration: 1,
+                stagger: 0.3,
+                ease: "power3.out",
+                scrollTrigger: { trigger: "#why-give", start: "top 75%" }
+            });
+
+            // --- Donation Amount Logic ---
+            const donationCard = document.querySelector('.donation-card');
+            const amountButtons = donationCard.querySelectorAll('.amount-btn');
+            const customAmountInput = donationCard.querySelector('#custom-amount');
+
+            amountButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    amountButtons.forEach(btn => btn.classList.remove('selected'));
+                    button.classList.add('selected');
+                    customAmountInput.value = ''; // Clear custom input when a button is clicked
+                });
+            });
+
+            customAmountInput.addEventListener('input', () => {
+                amountButtons.forEach(btn => btn.classList.remove('selected'));
+            });
+
+
+            // --- Footer Time ---
+            // ... (omitted for brevity, same as other pages)
+        });
+    </script>
+</body>
+</html>
