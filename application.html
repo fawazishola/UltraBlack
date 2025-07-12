@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultra Black - Scholarship Application</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- GSAP (GreenSock Animation Platform) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0A0A0A;
+            color: #EAEAEA;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .glossy-header {
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        /* Premium Link/Button Styles */
+        .premium-link { transition: color 0.3s ease; }
+        .premium-link:hover { color: #FFFFFF; }
+        .premium-button { transition: background-color 0.3s ease, transform 0.3s ease; }
+
+        /* Form Styles */
+        .form-container {
+            background-color: #111827; /* gray-900 */
+            border-radius: 1rem;
+            padding: 2rem;
+        }
+        .form-input, .form-textarea, .form-select {
+            background-color: #1F2937; /* gray-800 */
+            border: 1px solid #374151; /* gray-700 */
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            width: 100%;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: #3B82F6; /* blue-500 */
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+        }
+        .form-input.error, .form-textarea.error, .form-select.error {
+            border-color: #EF4444; /* red-500 */
+        }
+        .error-message {
+            color: #F87171; /* red-400 */
+            font-size: 0.875rem;
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        /* Progress Bar Styles */
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #374151; /* gray-700 */
+            transform: translateY(-50%);
+        }
+        .progress-indicator {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            height: 2px;
+            background-color: #FFFFFF;
+            transform: translateY(-50%) scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+        .progress-step {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+        .progress-step-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: #374151; /* gray-700 */
+            margin: 0 auto 0.5rem;
+            border: 2px solid #374151;
+            transition: background-color 0.4s ease, border-color 0.4s ease;
+        }
+        .progress-step.active .progress-step-dot {
+            background-color: #FFFFFF;
+            border-color: #FFFFFF;
+        }
+        .progress-step.completed .progress-step-dot {
+            background-color: #FFFFFF;
+            border-color: #FFFFFF;
+        }
+        .progress-step-label {
+            font-size: 0.875rem;
+            color: #6B7280; /* gray-500 */
+            transition: color 0.4s ease;
+        }
+        .progress-step.active .progress-step-label,
+        .progress-step.completed .progress-step-label {
+            color: #FFFFFF;
+        }
+
+        .form-step {
+            display: none;
+        }
+        .form-step.active {
+            display: block;
+        }
+
+        /* Custom File Input */
+        .file-input-wrapper {
+            position: relative;
+            width: 100%;
+            background-color: #1F2937;
+            border: 1px solid #374151;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+        }
+        .file-input-wrapper:hover {
+            border-color: #4B5563;
+        }
+        .file-input-text {
+            color: #9CA3AF;
+        }
+        .file-input-text.selected {
+            color: #FFFFFF;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navigation -->
+    <nav class="glossy-header sticky top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-black tracking-wider premium-link">ULTRA BLACK</a>
+        </div>
+    </nav>
+
+    <main class="py-16 md:py-24">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <div id="form-header" class="text-center mb-12">
+                    <h1 class="text-4xl md:text-5xl font-bold">Scholarship Application</h1>
+                    <p class="text-lg text-gray-400 mt-4">Complete the following steps to apply for the Ultra Black Scholarship.</p>
+                </div>
+
+                <div class="form-container">
+                    <!-- Progress Bar -->
+                    <div class="progress-bar" id="progress-bar">
+                        <div class="progress-step active" data-step="1">
+                            <div class="progress-step-dot"></div>
+                            <div class="progress-step-label">Personal</div>
+                        </div>
+                        <div class="progress-step" data-step="2">
+                            <div class="progress-step-dot"></div>
+                            <div class="progress-step-label">Academic</div>
+                        </div>
+                        <div class="progress-step" data-step="3">
+                            <div class="progress-step-dot"></div>
+                            <div class="progress-step-label">Submissions</div>
+                        </div>
+                        <div class="progress-step" data-step="4">
+                            <div class="progress-step-dot"></div>
+                            <div class="progress-step-label">Review</div>
+                        </div>
+                        <div class="progress-indicator" id="progress-indicator"></div>
+                    </div>
+
+                    <!-- Form Steps -->
+                    <form id="application-form" novalidate>
+                        <!-- Step 1: Personal Info -->
+                        <div class="form-step active" data-step="1">
+                            <h2 class="text-2xl font-bold mb-6">Personal Information</h2>
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div><label for="first-name" class="block mb-1">First Name</label><input type="text" id="first-name" class="form-input" required></div>
+                                <div><label for="last-name" class="block mb-1">Last Name</label><input type="text" id="last-name" class="form-input" required></div>
+                                <div><label for="dob" class="block mb-1">Date of Birth</label><input type="date" id="dob" class="form-input" required></div>
+                                <div><label for="pronouns" class="block mb-1">Pronouns</label><input type="text" id="pronouns" class="form-input" placeholder="e.g., she/her" required></div>
+                                <div class="md:col-span-2"><label for="address" class="block mb-1">Street Address</label><input type="text" id="address" class="form-input" required></div>
+                                <div><label for="city" class="block mb-1">City</label><input type="text" id="city" class="form-input" required></div>
+                                <div><label for="province" class="block mb-1">Province</label><input type="text" id="province" class="form-input" required></div>
+                                <div><label for="postal-code" class="block mb-1">Postal Code</label><input type="text" id="postal-code" class="form-input" required></div>
+                                <div><label for="gender" class="block mb-1">Gender</label><select id="gender" class="form-select" required><option value="">Select...</option><option>Male</option><option>Female</option><option>Non-Binary</option><option>Prefer not to say</option></select></div>
+                                <div><label for="ethnic-background" class="block mb-1">Ethnic Background</label><select id="ethnic-background" class="form-select" required><option value="">Select...</option><option>Black African</option><option>Black Caribbean</option><option>Other</option></select></div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Academic Info -->
+                        <div class="form-step" data-step="2">
+                            <h2 class="text-2xl font-bold mb-6">Contact & Academic Information</h2>
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div><label for="email" class="block mb-1">Email Address</label><input type="email" id="email" class="form-input" required></div>
+                                <div><label for="phone" class="block mb-1">Phone Number</label><input type="tel" id="phone" class="form-input" required></div>
+                                <div class="md:col-span-2"><label for="institution" class="block mb-1">Post-Secondary Institution</label><input type="text" id="institution" class="form-input" required></div>
+                                <div><label for="program" class="block mb-1">Program of Study</label><input type="text" id="program" class="form-input" required></div>
+                                <div><label for="grad-year" class="block mb-1">Expected Graduation Year</label><input type="number" id="grad-year" class="form-input" placeholder="YYYY" min="2025" required></div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Essays -->
+                        <div class="form-step" data-step="3">
+                            <h2 class="text-2xl font-bold mb-6">Submissions</h2>
+                            <div class="space-y-6">
+                                <div><label for="community-involvement" class="block mb-2">Describe your involvement in your community. (Max 500 words)</label><textarea id="community-involvement" rows="8" class="form-textarea" required></textarea></div>
+                                <div><label for="personal-statement" class="block mb-2">Personal Statement: What does "Run the culture" mean to you? (Max 500 words)</label><textarea id="personal-statement" rows="8" class="form-textarea" required></textarea></div>
+                                <div><label for="proof-of-enrollment" class="block mb-2">Proof of Enrollment</label><div class="file-input-wrapper"><span id="file-name-enrollment" class="file-input-text">Click to upload a PDF</span><input type="file" id="proof-of-enrollment" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" accept=".pdf" required></div></div>
+                                <div><label for="official-transcript" class="block mb-2">Official Transcript</label><div class="file-input-wrapper"><span id="file-name-transcript" class="file-input-text">Click to upload a PDF</span><input type="file" id="official-transcript" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" accept=".pdf" required></div></div>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Review -->
+                        <div class="form-step" data-step="4">
+                             <h2 class="text-2xl font-bold mb-6">Review Your Application</h2>
+                             <div id="review-content" class="space-y-4 text-gray-300"></div>
+                             <footer class="bg-black text-gray-400 pt-16 pb-12">
+                                <div class="container mx-auto px-6">
+                                    <div class="flex flex-wrap justify-center -mx-4">
+                                        <div class="w-full lg:w-1/3 xl:w-1/3 p-4">
+                                            <h3 class="text-lg font-bold mb-4">Newsletter</h3>
+                                            <p class="text-gray-500">Stay up to date with the latest news and updates from Ultra Black.</p>
+                                            <form>
+                                                <input type="email" class="w-full p-2 mb-4 border border-gray-400 rounded" placeholder="Enter your email address">
+                                                <button type="submit" class="w-full p-2 bg-blue-600 text-white rounded">Subscribe</button>
+                                            </form>
+                                        </div>
+                                        <div class="w-full lg:w-1/3 xl:w-1/3 p-4">
+                                            <h3 class="text-lg font-bold mb-4">Navigation</h3>
+                                            <ul>
+                                                <li class="mb-2"><a href="#" class="text-gray-500 hover:text-white">Home</a></li>
+                                                <li class="mb-2"><a href="#" class="text-gray-500 hover:text-white">About</a></li>
+                                                <li class="mb-2"><a href="#" class="text-gray-500 hover:text-white">Contact</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="w-full lg:w-1/3 xl:w-1/3 p-4">
+                                            <h3 class="text-lg font-bold mb-4">Branding</h3>
+                                            <p class="text-gray-500">Ultra Black is a registered trademark of Ultra Black Inc.</p>
+                                            <p class="text-gray-500">&copy; 2023 Ultra Black Inc. All rights reserved.</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-center mt-8">
+                                        <p class="text-gray-500">Current time is <span id="footer-time"></span></p>
+                                    </div>
+                                </div>
+                            </footer>
+                             <div class="mt-6 pt-6 border-t border-gray-700">
+                                 <label class="flex items-center">
+                                     <input type="checkbox" id="declaration" class="w-5 h-5 bg-gray-700 border-gray-600 rounded" required>
+                                     <span class="ml-3">I declare that the information provided is true and accurate to the best of my knowledge.</span>
+                                 </label>
+                             </div>
+                             <div class="mt-4">
+                                 <label for="signature" class="block mb-1">Signature (Type your full name)</label>
+                                 <input type="text" id="signature" class="form-input" required>
+                             </div>
+                        </div>
+                        
+                        <div id="error-message-container" class="error-message hidden"></div>
+                        
+                        <!-- Navigation Buttons -->
+                        <div class="flex justify-between mt-8 pt-6 border-t border-gray-700">
+                            <button type="button" id="prev-btn" class="py-2 px-6 rounded-full premium-button bg-gray-700 hover:bg-gray-600 disabled:opacity-50" disabled>Previous</button>
+                            <button type="button" id="next-btn" class="py-2 px-6 rounded-full premium-button bg-white text-black hover:bg-gray-200">Next</button>
+                            <button type="submit" id="submit-btn" class="hidden py-2 px-6 rounded-full premium-button bg-blue-600 text-white hover:bg-blue-500">Submit Application</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Success Screen -->
+            <div id="success-screen" class="hidden text-center max-w-2xl mx-auto py-20">
+                 <svg class="w-24 h-24 text-green-500 mx-auto mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                 <h1 class="text-4xl font-bold mb-4">Application Submitted!</h1>
+                 <p class="text-lg text-gray-300 mb-8">Thank you for applying. We have received your application and will be in touch after the review period. Good luck!</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('application-form');
+            const steps = Array.from(form.querySelectorAll('.form-step'));
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const submitBtn = document.getElementById('submit-btn');
+            const progressBar = document.getElementById('progress-bar');
+            const progressIndicator = document.getElementById('progress-indicator');
+            const progressSteps = Array.from(progressBar.querySelectorAll('.progress-step'));
+            const formContainer = document.querySelector('.form-container');
+            const successScreen = document.getElementById('success-screen');
+            const formHeader = document.getElementById('form-header');
+            const errorContainer = document.getElementById('error-message-container');
+
+            let currentStep = 1;
+
+            const updateButtons = () => {
+                prevBtn.disabled = currentStep === 1;
+                if (currentStep === steps.length) {
+                    nextBtn.classList.add('hidden');
+                    submitBtn.classList.remove('hidden');
+                } else {
+                    nextBtn.classList.remove('hidden');
+                    submitBtn.classList.add('hidden');
+                }
+            };
+
+            const updateProgressBar = () => {
+                progressSteps.forEach((step, index) => {
+                    const stepNum = index + 1;
+                    if (stepNum < currentStep) {
+                        step.classList.add('completed');
+                        step.classList.remove('active');
+                    } else if (stepNum === currentStep) {
+                        step.classList.add('active');
+                        step.classList.remove('completed');
+                    } else {
+                        step.classList.remove('active', 'completed');
+                    }
+                });
+                const progress = (currentStep - 1) / (steps.length - 1);
+                gsap.to(progressIndicator, { scaleX: progress, duration: 0.4, ease: 'power2.out' });
+            };
+
+            const showStep = (stepNum) => {
+                const currentStepEl = form.querySelector('.form-step.active');
+                const nextStepEl = form.querySelector(`.form-step[data-step="${stepNum}"]`);
+                
+                if (currentStepEl) {
+                    gsap.to(currentStepEl, {
+                        opacity: 0, y: -20, duration: 0.3, ease: 'power2.in',
+                        onComplete: () => {
+                            currentStepEl.classList.remove('active');
+                            nextStepEl.classList.add('active');
+                            gsap.fromTo(nextStepEl, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' });
+                        }
+                    });
+                } else {
+                    nextStepEl.classList.add('active');
+                    gsap.from(nextStepEl, { opacity: 0, y: 20, duration: 0.3, ease: 'power2.out' });
+                }
+                
+                currentStep = stepNum;
+                updateButtons();
+                updateProgressBar();
+            };
+            
+            const validateStep = (stepNum) => {
+                let isValid = true;
+                const stepEl = form.querySelector(`.form-step[data-step="${stepNum}"]`);
+                const inputs = stepEl.querySelectorAll('input[required], textarea[required], select[required]');
+                
+                errorContainer.classList.add('hidden');
+                errorContainer.textContent = '';
+
+                inputs.forEach(input => {
+                    input.classList.remove('error');
+                    if ((input.type === 'checkbox' && !input.checked) || !input.value.trim()) {
+                        isValid = false;
+                        input.classList.add('error');
+                    }
+                });
+
+                if (!isValid) {
+                    errorContainer.textContent = 'Please fill out all required fields.';
+                    errorContainer.classList.remove('hidden');
+                }
+                return isValid;
+            };
+
+            const populateReview = () => {
+                const reviewContent = document.getElementById('review-content');
+                let html = '';
+                const fields = [
+                    { id: 'first-name', label: 'First Name' }, { id: 'last-name', label: 'Last Name' },
+                    { id: 'dob', label: 'Date of Birth' }, { id: 'pronouns', label: 'Pronouns' },
+                    { id: 'address', label: 'Address' }, { id: 'city', label: 'City' },
+                    { id: 'province', label: 'Province' }, { id: 'postal-code', label: 'Postal Code' },
+                    { id: 'gender', label: 'Gender' }, { id: 'ethnic-background', label: 'Ethnic Background' },
+                    { id: 'email', label: 'Email' }, { id: 'phone', label: 'Phone' }, 
+                    { id: 'institution', label: 'Institution' }, { id: 'program', label: 'Program' }, 
+                    { id: 'grad-year', label: 'Graduation Year' }, { id: 'community-involvement', label: 'Community Involvement' },
+                    { id: 'personal-statement', label: 'Personal Statement' },
+                    { id: 'proof-of-enrollment', label: 'Proof of Enrollment' },
+                    { id: 'official-transcript', label: 'Official Transcript' }
+                ];
+                fields.forEach(field => {
+                    const el = document.getElementById(field.id);
+                    let value = el.value;
+                    if (el.type === 'file') {
+                        value = el.files.length > 0 ? el.files[0].name : 'Not provided';
+                    }
+                    html += `<div class="border-b border-gray-800 py-2"><p class="text-sm text-gray-500">${field.label}</p><p class="break-words">${value || 'Not provided'}</p></div>`;
+                });
+                reviewContent.innerHTML = html;
+            };
+
+            nextBtn.addEventListener('click', () => {
+                if (validateStep(currentStep) && currentStep < steps.length) {
+                    if (currentStep === steps.length - 1) {
+                       populateReview();
+                    }
+                    showStep(currentStep + 1);
+                }
+            });
+
+            prevBtn.addEventListener('click', () => {
+                if (currentStep > 1) {
+                    showStep(currentStep - 1);
+                }
+            });
+            
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (!validateStep(currentStep)) return;
+
+                gsap.to(submitBtn, { innerText: 'Submitting...', duration: 0.2 });
+                setTimeout(() => {
+                    gsap.to([formContainer, formHeader], {
+                        opacity: 0, duration: 0.5,
+                        onComplete: () => {
+                            formContainer.classList.add('hidden');
+                            formHeader.classList.add('hidden');
+                            successScreen.classList.remove('hidden');
+                            gsap.from(successScreen, { opacity: 0, y: 30, duration: 0.5 });
+                        }
+                    });
+                }, 1500);
+            });
+
+            // File input display logic
+            function setupFileInput(inputId, displayId, defaultText) {
+                const fileInput = document.getElementById(inputId);
+                const fileNameDisplay = document.getElementById(displayId);
+                fileInput.addEventListener('change', () => {
+                    if (fileInput.files.length > 0) {
+                        fileNameDisplay.textContent = fileInput.files[0].name;
+                        fileNameDisplay.classList.add('selected');
+                    } else {
+                        fileNameDisplay.textContent = defaultText;
+                        fileNameDisplay.classList.remove('selected');
+                    }
+                });
+            }
+
+            setupFileInput('proof-of-enrollment', 'file-name-enrollment', 'Click to upload a PDF');
+            setupFileInput('official-transcript', 'file-name-transcript', 'Click to upload a PDF');
+
+            showStep(1);
+        });
+    </script>
+</body>
+</html>
