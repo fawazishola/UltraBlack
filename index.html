@@ -136,13 +136,8 @@
 
                 <div class="hidden lg:flex items-center space-x-6">
                     <a href="/UltraBlack/cart.html" class="relative text-white hover:text-gray-300 transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                        </svg>
-                        <span id="cart-count" class="absolute -top-2 -right-2 bg-white text-black rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">0</span>
-                    </a>
-                    <a href="#" class="bg-white text-black font-bold py-3 px-6 rounded-full hover:bg-gray-200 transition-transform transform hover:scale-105">
-                        Join the Movement
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
                     </a>
                 </div>
 
@@ -154,20 +149,15 @@
         </nav>
 
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden lg:hidden fixed inset-0 bg-black/95 z-40 pt-24">
+        <div id="mobile-menu" class="hidden lg:hidden fixed inset-0 bg-black/95 z-40 pt-24 overflow-y-auto">
             <div class="container mx-auto px-6 flex flex-col items-center text-center space-y-6">
                 <a href="/UltraBlack/run-clubs.html" class="text-2xl hover:text-white transition-colors">Run Clubs</a>
-                <a href="/UltraBlack/fitness.html" class="text-2xl hover:text-white transition-colors">Fitness</a>
-                <a href="/UltraBlack/wellness.html" class="text-2xl hover:text-white transition-colors">Wellness</a>
-                <a href="/UltraBlack/about.html" class="text-2xl hover:text-white transition-colors">About</a>
                 <a href="/UltraBlack/store.html" class="text-2xl hover:text-white transition-colors">Store</a>
                 <a href="/UltraBlack/donations.html" class="text-2xl hover:text-white transition-colors">Donations</a>
                 <a href="/UltraBlack/scholarship.html" class="text-2xl hover:text-white transition-colors">Scholarship</a>
-                <a href="/UltraBlack/cart.html" class="text-2xl hover:text-white transition-colors flex items-center justify-center mt-4">
-                    <span>Cart</span>
-                    <span id="mobile-cart-count" class="ml-2 bg-white text-black rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">0</span>
+                <a href="/UltraBlack/cart.html" class="relative text-white hover:text-gray-300 transition-colors text-2xl">
+                    Cart (<span id="mobile-cart-count">0</span>)
                 </a>
-                <a href="#" class="mt-4 bg-white text-black font-bold py-4 px-8 rounded-full hover:bg-gray-200 transition-transform transform hover:scale-105">Join the Movement</a>
             </div>
         </div>
 
@@ -193,7 +183,7 @@
                 <h2 class="text-4xl font-bold text-center mb-12">Find Your Crew</h2>
                 <div class="grid md:grid-cols-2 gap-8">
                     <!-- City Tile 1 -->
-                    <a href="/UltraBlack/Run%20Clubs.html" class="city-tile relative h-96 rounded-lg overflow-hidden group">
+                    <a href="/UltraBlack/run-clubs.html" class="city-tile relative h-96 rounded-lg overflow-hidden group">
                         <img src="https://images.unsplash.com/photo-1533221344334-15a133141876?q=80&w=1974&auto=format&fit=crop" class="absolute w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Toronto cityscape">
                         <div class="absolute inset-0 bg-black/50"></div>
                         <div class="relative h-full flex flex-col justify-end p-8 text-white">
@@ -204,7 +194,7 @@
                         </div>
                     </a>
                     <!-- City Tile 2 -->
-                    <a href="/UltraBlack/Run%20Clubs.html" class="city-tile relative h-96 rounded-lg overflow-hidden group">
+                    <a href="/UltraBlack/run-clubs.html" class="city-tile relative h-96 rounded-lg overflow-hidden group">
                         <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?q=80&w=2070&auto=format&fit=crop" class="absolute w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="New York City">
                         <div class="absolute inset-0 bg-black/50"></div>
                         <div class="relative h-full flex flex-col justify-end p-8 text-white">
@@ -268,25 +258,41 @@
     </footer>
 
     <script>
-        // Update cart count function
-        function updateCartCount() {
-            const cart = JSON.parse(localStorage.getItem('cart')) || [];
-            const totalItems = cart.reduce((total, item) => total + (item.quantity || 1), 0);
-            document.querySelectorAll('#cart-count, #mobile-cart-count').forEach(el => {
-                el.textContent = totalItems || '0';
-                el.style.display = totalItems > 0 ? 'flex' : 'none';
-            });
-        }
-
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize cart count
-            updateCartCount();
-            // Mobile Menu Toggle
+            // --- Mobile Menu Toggle & Cart Count --- 
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenuButton.addEventListener('click', () => {
+            const body = document.body;
+
+            mobileMenuButton.addEventListener('click', (e) => {
+                e.stopPropagation();
                 mobileMenu.classList.toggle('hidden');
+                if (!mobileMenu.classList.contains('hidden')) {
+                    body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+                } else {
+                    body.style.overflow = 'auto';
+                }
             });
+
+            // Close menu if clicking outside of it
+            document.addEventListener('click', (e) => {
+                if (!mobileMenu.classList.contains('hidden') && !mobileMenu.contains(e.target)) {
+                    mobileMenu.classList.add('hidden');
+                    body.style.overflow = 'auto';
+                }
+            });
+
+            function updateCartCount() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+                const cartCountElement = document.getElementById('cart-count');
+                const mobileCartCountElement = document.getElementById('mobile-cart-count');
+                if (cartCountElement) cartCountElement.textContent = cartCount;
+                if (mobileCartCountElement) mobileCartCountElement.textContent = cartCount;
+            }
+            updateCartCount();
+            window.addEventListener('storage', updateCartCount); // Listen for changes from other tabs
+
 
             // GSAP Animation for the core statement
             const animatedText = document.getElementById('animated-text');
@@ -327,21 +333,6 @@
         });
     </script>
 
-<script>
-    // Update cart count in both desktop and mobile navigation
-    function updateCartCount() {
-        let count = 0;
-        try {
-            const stored = localStorage.getItem('cartCount');
-            count = stored ? parseInt(stored, 10) : 0;
-            if (isNaN(count)) count = 0;
-        } catch (e) { count = 0; }
-        var desktop = document.getElementById('cart-count');
-        var mobile = document.getElementById('cart-count-mobile');
-        if (desktop) desktop.textContent = count;
-        if (mobile) mobile.textContent = count;
-    }
-    document.addEventListener('DOMContentLoaded', updateCartCount);
-</script>
+
 </body>
 </html>

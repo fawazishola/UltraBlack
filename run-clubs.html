@@ -78,24 +78,16 @@
     <nav class="glossy-header sticky top-0 left-0 right-0 z-50">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="/UltraBlack/index.html" class="text-2xl font-black tracking-wider">ULTRA BLACK</a>
-            <div class="hidden lg:flex items-center space-x-8">
+            <div class="hidden lg:flex items-center space-x-6">
                 <a href="/UltraBlack/run-clubs.html" class="hover:text-white transition-colors font-bold">Run Clubs</a>
-                <a href="/UltraBlack/fitness.html" class="hover:text-white transition-colors">Fitness</a>
-                <a href="/UltraBlack/wellness.html" class="hover:text-white transition-colors">Wellness</a>
-                <a href="/UltraBlack/about.html" class="hover:text-white transition-colors">About</a>
                 <a href="/UltraBlack/store.html" class="hover:text-white transition-colors">Store</a>
                 <a href="/UltraBlack/donations.html" class="hover:text-white transition-colors">Donations</a>
                 <a href="/UltraBlack/scholarship.html" class="hover:text-white transition-colors">Scholarship</a>
             </div>
             <div class="hidden lg:flex items-center space-x-6">
                 <a href="/UltraBlack/cart.html" class="relative text-white hover:text-gray-300 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                    </svg>
-                    <span id="cart-count" class="absolute -top-2 -right-2 bg-white text-black rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">0</span>
-                </a>
-                <a href="#" class="bg-white text-black font-bold py-3 px-6 rounded-full hover:bg-gray-200 transition-transform transform hover:scale-105">
-                    Join the Movement
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
                 </a>
             </div>
             <button id="mobile-menu-button" class="lg:hidden flex items-center p-2">
@@ -105,25 +97,16 @@
     </nav>
 
     <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden lg:hidden fixed inset-0 bg-black/95 z-40 pt-24">
+    <div id="mobile-menu" class="hidden lg:hidden fixed inset-0 bg-black/95 z-40 pt-24 overflow-y-auto">
         <div class="container mx-auto px-6 flex flex-col items-center text-center space-y-6">
-    <a href="/UltraBlack/index.html" class="text-2xl premium-link text-gray-300">Home</a>
-    <a href="/UltraBlack/run-clubs.html" class="text-2xl premium-link text-white font-bold">Run Clubs</a>
-    <a href="/UltraBlack/fitness.html" class="text-2xl premium-link text-gray-300">Fitness</a>
-    <a href="/UltraBlack/wellness.html" class="text-2xl premium-link text-gray-300">Wellness</a>
-    <a href="/UltraBlack/about.html" class="text-2xl premium-link text-gray-300">About</a>
-    <a href="/UltraBlack/store.html" class="text-2xl premium-link text-gray-300">Store</a>
-    <a href="/UltraBlack/donations.html" class="text-2xl premium-link text-gray-300">Donations</a>
-    <a href="/UltraBlack/scholarship.html" class="text-2xl premium-link text-gray-300">Scholarship</a>
-    <a href="/UltraBlack/cart.html" class="text-2xl premium-link text-gray-300 flex items-center justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-        </svg>
-        <span id="cart-count-mobile" class="bg-white text-black rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold ml-1">0</span>
-        Cart
-    </a>
-    <a href="#" class="mt-8 bg-white text-black font-bold py-4 px-8 rounded-full premium-button">Join the Movement</a>
-</div>
+            <a href="/UltraBlack/run-clubs.html" class="text-2xl hover:text-white transition-colors font-bold">Run Clubs</a>
+            <a href="/UltraBlack/store.html" class="text-2xl hover:text-white transition-colors">Store</a>
+            <a href="/UltraBlack/donations.html" class="text-2xl hover:text-white transition-colors">Donations</a>
+            <a href="/UltraBlack/scholarship.html" class="text-2xl hover:text-white transition-colors">Scholarship</a>
+            <a href="/UltraBlack/cart.html" class="relative text-white hover:text-gray-300 transition-colors text-2xl">
+                Cart (<span id="mobile-cart-count">0</span>)
+            </a>
+        </div>
     </div>
 
     <main>
@@ -235,10 +218,30 @@
         </div>
     </main>
 
-    <footer class="bg-black py-12 border-t border-gray-800">
-        <div class="container mx-auto px-6 text-center text-gray-400">
-            <p class="font-bold text-lg">@ultrablack.run</p>
-            <p class="mt-4 text-sm">&copy; 2024 Ultra Black. All Rights Reserved.</p>
+    <footer class="bg-black text-white py-12 md:py-20">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="md:col-span-1 text-center md:text-left">
+                    <h3 class="text-2xl font-black tracking-wider">ULTRA BLACK</h3>
+                    <p class="text-gray-400 mt-2">A community-driven platform for runners.</p>
+                    <div class="flex justify-center md:justify-start space-x-4 mt-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12.315 2c-4.42 0-7.8 2.34-9.423 5.428C1.24 10.49.873 13.734 2.01 17.15c1.11 3.35 3.8 5.85 7.28 5.85h4.216c3.48 0 6.17-2.5 7.28-5.85 1.137-3.416.77-6.66-1.07-9.722C18.115 4.34 16.735 2 12.315 2zm0 1.622c3.822 0 6.75 1.98 8.21 4.686.86 1.54 1.32 3.546.96 5.922-.53 3.5-2.67 5.22-5.46 5.22h-4.21c-2.79 0-4.93-1.72-5.46-5.22-.36-2.376.1-4.382.96-5.922C5.565 3.98 8.493 2 12.315 2zM6.35 9.182c.33 0 .6.27.6.6v4.836a.6.6 0 01-1.2 0V9.782c0-.33.27-.6.6-.6zm11.3 0c.33 0 .6.27.6.6v4.836a.6.6 0 01-1.2 0V9.782c0-.33.27-.6.6-.6zM12 6.545c-3.01 0-5.455 2.444-5.455 5.455S8.99 17.455 12 17.455s5.455-2.444 5.455-5.455S15.01 6.545 12 6.545zm0 1.2c2.345 0 4.255 1.91 4.255 4.255S14.345 16.255 12 16.255 7.745 14.345 7.745 12s1.91-4.255 4.255-4.255z" clip-rule="evenodd"/></svg></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-2.43.05-4.86-.95-6.69-2.81-1.75-1.76-2.59-4.16-2.6-6.69-.01-2.42.93-4.82 2.7-6.61 1.8-1.83 4.26-2.8 6.7-2.66.01 1.56-.01 3.12.01 4.67.01.15.02.3.02.45-.56-.11-1.11-.23-1.66-.37-1.43-.37-2.86-.36-4.29.05-1.13.33-2.17.85-3.07 1.57-.91.72-1.63 1.65-2.1 2.71-.63 1.52-.84 3.2-.53 4.8.31 1.6 1.15 3.04 2.41 4.13 1.25 1.09 2.81 1.7 4.45 1.75 1.62.05 3.2-.49 4.47-1.48 1.23-.95 2.04-2.32 2.26-3.83.07-.46.08-.92.08-1.38.01-3.48.01-6.95.02-10.43.01-.12.02-.24.02-.37.01-.15.01-.3-.01-.45-.2-.02-.39-.04-.58-.04-1.28-.01-2.57-.01-3.85-.01z"/></svg></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.78 22 12 22 12s0 3.22-.42 4.814a2.506 2.506 0 0 1-1.768 1.768c-1.594.42-7.812.42-7.812.42s-6.218 0-7.812-.42a2.506 2.506 0 0 1-1.768-1.768C2 15.22 2 12 2 12s0-3.22.42-4.814a2.506 2.506 0 0 1 1.768-1.768C5.782 5 12 5 12 5s6.218 0 7.812.418ZM15.197 12 10 8.82v6.36L15.197 12Z" clip-rule="evenodd"/></svg></a>
+                    </div>
+                </div>
+                <div class="md:col-span-2">
+                    <h4 class="text-lg font-semibold">Stay in the loop</h4>
+                    <p class="text-gray-400 mt-2">Subscribe to our newsletter for the latest updates, events, and stories from the Ultra Black community.</p>
+                    <form class="mt-4 flex flex-col sm:flex-row">
+                        <input type="email" placeholder="Your Email" class="w-full sm:w-auto flex-grow px-4 py-3 rounded-t-md sm:rounded-l-md sm:rounded-t-none bg-gray-800 border border-gray-700 focus:outline-none focus:border-white">
+                        <button type="submit" class="bg-white text-black font-bold px-6 py-3 rounded-b-md sm:rounded-r-md sm:rounded-b-none hover:bg-gray-200 transition-colors">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="mt-8 border-t border-gray-800 pt-8 text-center text-gray-500">
+                <p>&copy; 2024 Ultra Black. All Rights Reserved.</p>
+            </div>
         </div>
     </footer>
 
@@ -249,9 +252,35 @@
             // --- Mobile Menu ---
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenuButton.addEventListener('click', () => {
+            const body = document.body;
+
+            mobileMenuButton.addEventListener('click', (e) => {
+                e.stopPropagation();
                 mobileMenu.classList.toggle('hidden');
+                if (!mobileMenu.classList.contains('hidden')) {
+                    body.style.overflow = 'hidden';
+                } else {
+                    body.style.overflow = 'auto';
+                }
             });
+
+            document.addEventListener('click', (e) => {
+                if (!mobileMenu.classList.contains('hidden') && !mobileMenu.contains(e.target)) {
+                    mobileMenu.classList.add('hidden');
+                    body.style.overflow = 'auto';
+                }
+            });
+
+            function updateCartCount() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+                const cartCountElement = document.getElementById('cart-count');
+                const mobileCartCountElement = document.getElementById('mobile-cart-count');
+                if (cartCountElement) cartCountElement.textContent = cartCount;
+                if (mobileCartCountElement) mobileCartCountElement.textContent = cartCount;
+            }
+            updateCartCount();
+            window.addEventListener('storage', updateCartCount);
 
             // --- GSAP Animations ---
 
@@ -318,21 +347,6 @@
             });
         });
     </script>
-<script>
-    // Update cart count in both desktop and mobile navigation
-    function updateCartCount() {
-        let count = 0;
-        try {
-            const stored = localStorage.getItem('cartCount');
-            count = stored ? parseInt(stored, 10) : 0;
-            if (isNaN(count)) count = 0;
-        } catch (e) { count = 0; }
-        var desktop = document.getElementById('cart-count');
-        var mobile = document.getElementById('cart-count-mobile');
-        if (desktop) desktop.textContent = count;
-        if (mobile) mobile.textContent = count;
-    }
-    document.addEventListener('DOMContentLoaded', updateCartCount);
-</script>
+
 </body>
 </html>
