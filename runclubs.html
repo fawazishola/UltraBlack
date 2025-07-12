@@ -260,7 +260,15 @@
 </footer>
             
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const totalItems = cart.reduce((total, item) => total + (item.quantity || 1), 0);
+    document.querySelectorAll('#cart-count, #mobile-cart-count').forEach(el => {
+        el.textContent = totalItems;
+    });
+}
+document.addEventListener('DOMContentLoaded', function () {
+    updateCartCount();
             gsap.registerPlugin(ScrollTrigger);
 
             // --- Mobile Menu ---
