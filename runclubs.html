@@ -76,15 +76,16 @@
     <!-- Navigation -->
     <nav class="glossy-header sticky top-0 left-0 right-0 z-50">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-black tracking-wider">ULTRA BLACK</a>
+            <a href="index.html" class="text-2xl font-black tracking-wider">ULTRA BLACK</a>
             <div class="hidden lg:flex items-center space-x-8">
-                <a href="#" class="text-white font-bold">Run Clubs</a>
-                <a href="#" class="hover:text-white transition-colors">Fitness</a>
-                <a href="#" class="hover:text-white transition-colors">Wellness</a>
-                <a href="#" class="hover:text-white transition-colors">About</a>
-                <a href="#" class="hover:text-white transition-colors">Store</a>
-                <a href="#" class="hover:text-white transition-colors">Donations</a>
-                <a href="#" class="hover:text-white transition-colors">Scholarship</a>
+                <a href="runclubs.html" class="text-white font-bold">Run Clubs</a>
+                <a href="fitness.html" class="hover:text-white transition-colors">Fitness</a>
+                <a href="wellness.html" class="hover:text-white transition-colors">Wellness</a>
+                <a href="about.html" class="hover:text-white transition-colors">About</a>
+                <a href="store.html" class="hover:text-white transition-colors">Store</a>
+                <a href="donation.html" class="hover:text-white transition-colors">Donations</a>
+                <a href="scholarship.html" class="hover:text-white transition-colors">Scholarship</a>
+                <a href="cart.html" class="hover:text-white transition-colors">Cart</a>
             </div>
             <div class="hidden lg:flex items-center space-x-6">
                 <a href="#" class="relative text-white hover:text-gray-300 transition-colors">
@@ -93,7 +94,7 @@
                     </svg>
                     <span id="cart-count" class="absolute -top-2 -right-2 bg-white text-black rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">0</span>
                 </a>
-                <a href="#" class="bg-white text-black font-bold py-3 px-6 rounded-full hover:bg-gray-200 transition-transform transform hover:scale-105">
+                <a href="runclubs.html" class="bg-white text-black font-bold py-3 px-6 rounded-full hover:bg-gray-200 transition-transform transform hover:scale-105">
                     Join the Movement
                 </a>
             </div>
@@ -215,10 +216,49 @@
         </div>
     </main>
 
-    <footer class="bg-black py-12 border-t border-gray-800">
-        <!-- Footer content would go here -->
-    </footer>
+    <!-- Redesigned Footer -->
+<footer class="bg-black text-gray-400 pt-16 pb-12">
+    <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-10 gap-8 mb-20">
+            <div class="md:col-span-3">
+                <h4 class="text-lg font-bold text-white mb-4">Run the culture.</h4>
+                <p>Toronto—Canada</p>
+                <p id="footer-time"></p>
+            </div>
+            <div class="md:col-span-3">
+                <p class="mb-4">Sign up for our newsletter:</p>
+                <input type="email" placeholder="Your Email" class="footer-input">
+            </div>
+            <div class="md:col-span-2">
+                <ul class="space-y-2">
+                    <li><a href="#" class="premium-link">Run Clubs</a></li>
+                    <li><a href="#" class="premium-link">Fitness</a></li>
+                    <li><a href="#" class="premium-link">Wellness</a></li>
+                    <li><a href="#" class="premium-link">About</a></li>
+                </ul>
+            </div>
+            <div class="md:col-span-2">
+                <ul class="space-y-2">
+                    <li><a href="#" class="premium-link">Store</a></li>
+                    <li><a href="#" class="premium-link">Contact</a></li>
+                    <li><a href="#" class="premium-link">Instagram &rarr;</a></li>
+                    <li><a href="#" class="premium-link">TikTok &rarr;</a></li>
+                </ul>
+            </div>
+        </div>
 
+        <div class="border-t border-gray-800 pt-8 flex justify-between items-end">
+            <div class="flex space-x-4 text-sm">
+                <p>&copy; 2025</p>
+                <a href="#" class="premium-link">Terms of use</a>
+            </div>
+            <div class="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-none whitespace-nowrap">
+                ULTRA BLACK
+            </div>
+        </div>
+    </div>
+</footer>
+            
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             gsap.registerPlugin(ScrollTrigger);
@@ -238,6 +278,21 @@
                 stagger: 0.2,
                 ease: "power3.out"
             });
+
+            // --- Footer Time ---
+            const timeEl = document.getElementById('footer-time');
+            function updateTime() {
+                const time = new Date().toLocaleTimeString('en-US', {
+                    timeZone: 'America/Toronto',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: false
+                });
+                timeEl.textContent = `${time} EST`;
+            }
+            updateTime();
+            setInterval(updateTime, 1000);
 
             const lines = document.querySelectorAll(".stride-text .line");
             gsap.set(lines, { '--line-reveal': '1' });
@@ -283,3 +338,4 @@
     </script>
 </body>
 </html>
+        
