@@ -130,11 +130,11 @@
                 <a href="about.html" class="premium-link text-gray-300">About</a>
                 <a href="scholarship.html" class="premium-link text-white font-bold">Scholarship</a>
                 <a href="store.html" class="premium-link text-gray-300">Store</a>
-                <a href="cart.html" class="premium-link text-gray-300">Cart</a>
+                
                 <a href="donation.html" class="premium-link text-gray-300">Donations</a>
             </div>
             <div class="hidden lg:flex items-center space-x-6">
-                <a href="#" class="relative text-white hover:text-gray-300 transition-colors">
+                <a href="cart.html" class="relative text-white hover:text-gray-300 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
@@ -158,6 +158,23 @@
                 <h1 id="hero-title" class="text-5xl md:text-7xl font-black uppercase tracking-tighter">The Ultra Black Scholarship</h1>
             </div>
         </header>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="fixed top-0 left-0 right-0 bottom-0 bg-black/80 z-50 hidden">
+            <div class="flex flex-col items-center justify-center h-full">
+                <a href="cart.html" class="text-2xl premium-link text-gray-300 flex items-center justify-center mt-4">
+                    <span>Cart</span>
+                    <span id="mobile-cart-count" class="ml-2 bg-white text-black rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">0</span>
+                </a>
+                <a href="runclubs.html" class="premium-link text-gray-300 mt-4">Run Clubs</a>
+                <a href="fitness.html" class="premium-link text-gray-300 mt-4">Fitness</a>
+                <a href="wellness.html" class="premium-link text-gray-300 mt-4">Wellness</a>
+                <a href="about.html" class="premium-link text-gray-300 mt-4">About</a>
+                <a href="scholarship.html" class="premium-link text-white font-bold mt-4">Scholarship</a>
+                <a href="store.html" class="premium-link text-gray-300 mt-4">Store</a>
+                <a href="donation.html" class="premium-link text-gray-300 mt-4">Donations</a>
+            </div>
+        </div>
 
         <!-- Why We Invest Section -->
         <section id="why-invest" class="py-20 md:py-32 bg-black">
@@ -246,6 +263,46 @@
     <!-- Footer -->
     <footer class="bg-black text-gray-400 pt-16 pb-12">
         <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-10 gap-8 mb-20">
+                <div class="md:col-span-3">
+                    <h4 class="text-lg font-bold text-white mb-4">Run the culture.</h4>
+                    <p>Toronto—Canada</p>
+                    <p id="footer-time"></p>
+                </div>
+                <div class="md:col-span-3">
+                    <p class="mb-4">Sign up for our newsletter:</p>
+                    <input type="email" placeholder="Your Email" class="footer-input">
+                </div>
+                <div class="md:col-span-2">
+                    <ul class="space-y-2">
+                        <li><a href="#" class="premium-link">Run Clubs</a></li>
+                        <li><a href="#" class="premium-link">Fitness</a></li>
+                        <li><a href="#" class="premium-link">Wellness</a></li>
+                        <li><a href="#" class="premium-link">About</a></li>
+                    </ul>
+                </div>
+                <div class="md:col-span-2">
+                    <ul class="space-y-2">
+                        <li><a href="#" class="premium-link">Store</a></li>
+                        <li><a href="#" class="premium-link">Contact</a></li>
+                        <li><a href="#" class="premium-link">Instagram &rarr;</a></li>
+                        <li><a href="#" class="premium-link">TikTok &rarr;</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 flex justify-between items-end">
+                <div class="flex space-x-4 text-sm">
+                    <p>&copy; 2025</p>
+                    <a href="#" class="premium-link">Terms of use</a>
+                </div>
+                <div class="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-none whitespace-nowrap">
+                    ULTRA BLACK
+                </div>
+            </div>
+        </div>
+    </footer>
+        <div class="container mx-auto px-6">
             <div class="flex justify-between mb-12">
                 <div class="w-full lg:w-1/2 xl:w-1/3 mb-6 lg:mb-0">
                     <h2 class="text-2xl font-bold mb-4">Stay Connected</h2>
@@ -314,5 +371,16 @@
             // ... (omitted for brevity)
         });
     </script>
+<script>
+function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const totalItems = cart.reduce((total, item) => total + (item.quantity || 1), 0);
+    document.querySelectorAll('#cart-count, #mobile-cart-count').forEach(el => {
+        el.textContent = totalItems;
+        el.style.display = totalItems > 0 ? 'flex' : 'none';
+    });
+}
+document.addEventListener('DOMContentLoaded', updateCartCount);
+</script>
 </body>
 </html>
