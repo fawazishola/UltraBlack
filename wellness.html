@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultra Black - Wellness</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- GSAP (GreenSock Animation Platform) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0A0A0A;
+            color: #EAEAEA;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+        .glossy-header {
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        /* Card Dealing Animation Styles */
+        .card-deal-container {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .card-stack {
+            position: relative;
+            width: 150px; 
+            height: 150px;
+            visibility: hidden; /* Hide initially to prevent flash */
+        }
+        .card {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 1rem;
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            transform-origin: center center;
+        }
+
+        /* Premium Link/Button Styles */
+        .premium-link {
+            transition: color 0.3s ease;
+        }
+        .premium-link:hover {
+            color: #FFFFFF;
+        }
+        .premium-button {
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        /* New Footer Styles */
+        .footer-input {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #4B5563; /* gray-600 */
+            color: white;
+            padding: 0.5rem 0;
+            width: 100%;
+            transition: border-color 0.3s ease;
+        }
+        .footer-input:focus {
+            outline: none;
+            border-bottom-color: white;
+        }
+        
+        /* Contact Link Glow Effect */
+        .contact-glow-link {
+            color: #FFFFFF;
+            font-weight: 600;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            transition: all 0.3s ease-in-out;
+        }
+        .contact-glow-link:hover {
+            color: #FFFFFF;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+        }
+
+        /* New Timeline Calendar Styles */
+        .timeline-container {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none;  /* IE and Edge */
+            scroll-snap-type: x mandatory;
+            padding-bottom: 2rem;
+        }
+        .timeline-container::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, and Opera */
+        }
+        .timeline {
+            display: flex;
+            align-items: center;
+            padding: 0 50vw; /* Allows first and last items to center */
+        }
+        .timeline-day {
+            flex: 0 0 auto;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #6B7280; /* gray-500 */
+            font-size: 0.8rem;
+            scroll-snap-align: center;
+            position: relative;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .timeline-day:hover {
+            color: #D1D5DB; /* gray-300 */
+        }
+        .timeline-day.has-event {
+            color: #EAEAEA;
+            font-weight: 600;
+        }
+        .timeline-day .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #4B5563; /* gray-600 */
+            margin-top: 8px;
+            transition: background-color 0.3s ease;
+        }
+        .timeline-day.has-event .dot {
+            background-color: #FFFFFF;
+        }
+        .timeline-day.selected .dot {
+            background-color: #3B82F6; /* blue-500 */
+        }
+        .timeline-day.today .dot {
+            background-color: #3B82F6;
+        }
+        .event-details {
+            display: none; /* Hidden by default */
+        }
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navigation -->
+    <nav class="glossy-header fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-black tracking-wider premium-link">ULTRA BLACK</a>
+            <div class="hidden lg:flex items-center space-x-8">
+                <a href="#" class="premium-link text-gray-300">Run Clubs</a>
+                <a href="#" class="premium-link text-gray-300">Fitness</a>
+                <a href="#" class="premium-link text-white font-bold">Wellness</a>
+                <a href="#" class="premium-link text-gray-300">About</a>
+                <a href="#" class="premium-link text-gray-300">Store</a>
+                <a href="#" class="premium-link text-gray-300">Donations</a>
+                <a href="#" class="premium-link text-gray-300">Scholarship</a>
+            </div>
+            <div class="hidden lg:flex items-center space-x-6">
+                <a href="#" class="relative text-white hover:text-gray-300 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-white text-black rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">0</span>
+                </a>
+                <a href="#" class="bg-white text-black font-bold py-3 px-6 rounded-full premium-button hover:bg-gray-200 hover:scale-105">
+                    Join the Movement
+                </a>
+            </div>
+            <button id="mobile-menu-button" class="lg:hidden flex items-center p-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden lg:hidden fixed inset-0 bg-black/95 z-40 pt-24">
+        <div class="container mx-auto px-6 flex flex-col items-center text-center space-y-6">
+            <a href="#" class="text-2xl premium-link text-gray-300">Run Clubs</a>
+            <a href="#" class="text-2xl premium-link text-gray-300">Fitness</a>
+            <a href="#" class="text-2xl premium-link text-white font-bold">Wellness</a>
+            <a href="#" class="text-2xl premium-link text-gray-300">About</a>
+            <a href="#" class="text-2xl premium-link text-gray-300">Store</a>
+            <a href="#" class="text-2xl premium-link text-gray-300">Donations</a>
+            <a href="#" class="text-2xl premium-link text-gray-300">Scholarship</a>
+            <a href="#" class="text-2xl premium-link text-gray-300 flex items-center justify-center mt-4">
+                <span>Cart</span>
+                <span id="mobile-cart-count" class="ml-2 bg-white text-black rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">0</span>
+            </a>
+            <a href="#" class="mt-8 bg-white text-black font-bold py-4 px-8 rounded-full premium-button">Join the Movement</a>
+        </div>
+    </div>
+
+    <main>
+        <!-- Card Dealing Animation Section -->
+        <section class="card-deal-container">
+            <div class="card-stack">
+                <div class="card" style="background-image: url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=1999&auto=format&fit=crop');"></div>
+                <div class="card" style="background-image: url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2120&auto=format&fit=crop');"></div>
+                <div class="card" style="background-image: url('https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?q=80&w=2070&auto=format&fit=crop');"></div>
+                <div class="card" style="background-image: url('https://images.unsplash.com/photo-1498837167922-ddd27525d352?q=80&w=2070&auto=format&fit=crop');"></div>
+                <div class="card" style="background-image: url('https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=2070&auto=format&fit=crop');"></div>
+                <div class="card" style="background-image: url('https://images.unsplash.com/photo-1467003909585-2f8a72700288?q=80&w=1974&auto=format&fit=crop');"></div>
+                <div class="card" style="background-image: url('https://images.unsplash.com/photo-1590648832235-e25358a12139?q=80&w=1974&auto=format&fit=crop');"></div>
+                <div class="card" style="background-image: url('https://images.unsplash.com/photo-1515003197210-9041495e8998?q=80&w=2070&auto=format&fit=crop');"></div>
+                <div class="card" style="background-image: url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1932&auto=format&fit=crop');"></div>
+                <div class="card" style="background-image: url('https://images.unsplash.com/photo-1434494878577-86e23ccc068c?q=80&w=2070&auto=format&fit=crop');"></div>
+            </div>
+        </section>
+
+        <!-- Informational Text Section -->
+        <section class="py-20 md:py-32 bg-black">
+            <div class="container mx-auto px-6 max-w-3xl text-center">
+                <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">
+                    Providing, exposing, and connecting the Black community to wellness resources and professionals. Empowering our peers to take better care of themselves mentally, spiritually and physically while creating a communal space for health and healing.
+                </p>
+                <p class="text-lg md:text-xl text-gray-300 leading-relaxed">
+                    Interested in partnering on a wellness event with Ultra Black? Visit our <a href="#" class="contact-glow-link">Contact Us page</a> for details on how to connect.
+                </p>
+            </div>
+        </section>
+
+        <!-- New Timeline Calendar Section -->
+        <section class="py-20 md:py-32 bg-black border-t border-gray-800">
+            <div class="container mx-auto">
+                <div class="text-center mb-16 px-6">
+                    <h2 class="text-4xl md:text-5xl font-bold">Wellness Calendar</h2>
+                    <p class="text-lg text-gray-400 mt-4">Find your next wellness event. Scroll to explore the timeline.</p>
+                </div>
+
+                <div class="relative">
+                    <!-- Center line -->
+                    <div class="absolute top-1/2 left-0 w-full h-px bg-gray-700 -translate-y-1/2"></div>
+                    
+                    <div id="timeline-container" class="timeline-container">
+                        <div id="timeline" class="timeline">
+                            <!-- Days will be populated by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <div id="event-details-container" class="max-w-3xl mx-auto mt-12 px-6">
+                    <div id="event-details" class="bg-gray-900 p-8 rounded-lg text-center">
+                        <h4 id="event-title" class="text-3xl font-bold"></h4>
+                        <p id="event-time-location" class="text-lg text-gray-300 mt-1"></p>
+                        <p id="event-description" class="mt-4"></p>
+                    </div>
+                    <div id="no-event-message" class="text-center p-8 text-gray-500">
+                        <p class="text-xl">Select an event from the timeline above.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Redesigned Footer -->
+    <footer class="bg-black text-gray-400 pt-16 pb-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-10 gap-8 mb-20">
+                <div class="md:col-span-3">
+                    <h4 class="text-lg font-bold text-white mb-4">Run the culture.</h4>
+                    <p>Toronto—Canada</p>
+                    <p id="footer-time"></p>
+                </div>
+                <div class="md:col-span-3">
+                    <p class="mb-4">Sign up for our newsletter:</p>
+                    <input type="email" placeholder="Your Email" class="footer-input">
+                </div>
+                <div class="md:col-span-2">
+                    <ul class="space-y-2">
+                        <li><a href="#" class="premium-link">Run Clubs</a></li>
+                        <li><a href="#" class="premium-link">Fitness</a></li>
+                        <li><a href="#" class="premium-link">Wellness</a></li>
+                        <li><a href="#" class="premium-link">About</a></li>
+                    </ul>
+                </div>
+                <div class="md:col-span-2">
+                    <ul class="space-y-2">
+                        <li><a href="#" class="premium-link">Store</a></li>
+                        <li><a href="#" class="premium-link">Contact</a></li>
+                        <li><a href="#" class="premium-link">Instagram &rarr;</a></li>
+                        <li><a href="#" class="premium-link">TikTok &rarr;</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 flex justify-between items-end">
+                <div class="flex space-x-4 text-sm">
+                    <p>&copy; 2025</p>
+                    <a href="#" class="premium-link">Terms of use</a>
+                </div>
+                <div class="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-none whitespace-nowrap">
+                    ULTRA BLACK
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // --- Mobile Menu ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // --- GSAP Card Dealing Animation ---
+            const cards = gsap.utils.toArray(".card");
+            const cardStack = document.querySelector(".card-stack");
+            
+            gsap.set(cards, {
+                x: 0,
+                y: 100,
+                rotation: (i) => i * 2,
+            });
+
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: ".card-deal-container",
+                    pin: true,
+                    start: "top top",
+                    end: "+=2000",
+                    scrub: 1,
+                    onEnter: () => gsap.to(cardStack, { autoAlpha: 1, duration: 0.2 }),
+                }
+            });
+
+            const grid = { cols: 5, rows: 2, cardWidth: 150, cardHeight: 150, gap: 30 };
+            const gridWidth = grid.cols * grid.cardWidth + (grid.cols - 1) * grid.gap;
+            const gridHeight = grid.rows * grid.cardHeight + (grid.rows - 1) * grid.gap;
+            const offsetX = -gridWidth / 2 + grid.cardWidth / 2;
+            const offsetY = -gridHeight / 2 + grid.cardHeight / 2;
+
+            cards.forEach((card, i) => {
+                const col = i % grid.cols;
+                const row = Math.floor(i / grid.cols);
+                const finalX = col * (grid.cardWidth + grid.gap) + offsetX;
+                const finalY = row * (grid.cardHeight + grid.gap) + offsetY;
+                tl.to(card, { x: finalX, y: finalY, rotation: 0, scale: 1, ease: "power1.out" }, 0);
+            });
+
+
+            // --- Timeline Calendar Logic ---
+            const timeline = document.getElementById('timeline');
+            const eventDetailsEl = document.getElementById('event-details');
+            const noEventMessageEl = document.getElementById('no-event-message');
+            const eventTitleEl = document.getElementById('event-title');
+            const eventTimeLocationEl = document.getElementById('event-time-location');
+            const eventDescriptionEl = document.getElementById('event-description');
+
+            const wellnessEvents = {
+                "2025-07-06": { title: "Mindful Morning Yoga", time: "8:00 AM", location: "Trillium Park", description: "Start your Sunday with a gentle yoga flow by the water. All levels welcome. Please bring a mat." },
+                "2025-07-16": { title: "Nutrition Workshop: Fueling Your Body", time: "7:30 PM", location: "Online / Zoom", description: "Learn about optimal nutrition for an active lifestyle with a registered dietitian." },
+                "2025-07-27": { title: "Guided Meditation & Sound Bath", time: "8:00 PM", location: "Community Wellness Center", description: "A deeply relaxing session to calm the mind and restore the spirit. No experience necessary." },
+                "2025-08-10": { title: "Restorative Hike", time: "10:00 AM", location: "Rouge National Urban Park", description: "Connect with nature on a gentle hike focused on mindfulness and recovery." }
+            };
+
+            let currentDate = new Date(2025, 6, 1); // July 2025
+
+            function renderTimeline() {
+                timeline.innerHTML = '';
+                const year = currentDate.getFullYear();
+                const month = currentDate.getMonth();
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+                const today = new Date();
+                
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const dayEl = document.createElement('div');
+                    const date = new Date(year, month, day);
+                    const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                    
+                    dayEl.className = 'timeline-day';
+                    dayEl.innerHTML = `
+                        <span>${date.toLocaleString('default', { weekday: 'short' })}</span>
+                        <span class="text-xl font-bold">${day}</span>
+                        <div class="dot"></div>
+                    `;
+                    dayEl.dataset.date = dateStr;
+
+                    if (wellnessEvents[dateStr]) {
+                        dayEl.classList.add('has-event');
+                        dayEl.addEventListener('click', () => showEventDetails(dateStr));
+                    }
+                    if (date.toDateString() === today.toDateString()) {
+                        dayEl.classList.add('today');
+                    }
+
+                    timeline.appendChild(dayEl);
+                }
+                // Scroll to today if it's the current month
+                if(today.getFullYear() === year && today.getMonth() === month) {
+                    const todayEl = document.querySelector('.timeline-day.today');
+                    if(todayEl) {
+                        todayEl.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+                    }
+                }
+            }
+
+            function showEventDetails(dateStr) {
+                const event = wellnessEvents[dateStr];
+                document.querySelectorAll('.timeline-day.selected').forEach(el => el.classList.remove('selected'));
+                document.querySelector(`[data-date="${dateStr}"]`).classList.add('selected');
+
+                if (event) {
+                    eventTitleEl.textContent = event.title;
+                    eventTimeLocationEl.textContent = `${event.time} @ ${event.location}`;
+                    eventDescriptionEl.textContent = event.description;
+                    
+                    gsap.set(eventDetailsEl, { display: 'block', opacity: 0, y: 20 });
+                    gsap.to(eventDetailsEl, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' });
+                    noEventMessageEl.style.display = 'none';
+                }
+            }
+
+            renderTimeline();
+
+            // --- Footer Time ---
+            const timeEl = document.getElementById('footer-time');
+            function updateTime() {
+                const time = new Date().toLocaleTimeString('en-US', {
+                    timeZone: 'America/Toronto',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: false
+                });
+                timeEl.textContent = `${time} EST`;
+            }
+            updateTime();
+            setInterval(updateTime, 1000);
+        });
+    </script>
+</body>
+</html>
