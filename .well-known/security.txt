@@ -1,0 +1,29 @@
+# Ultra Black Run Club Security Policy
+# Last Updated: 2025-01-27
+
+# Our security contact
+Contact: security@ultrablack.run
+Contact: mailto:admin@ultrablack.run
+
+# Our PGP key (if applicable)
+# Encryption: https://ultrablack.run/.well-known/pgp-key.txt
+
+# Our security policy
+Policy: https://ultrablack.run/security-policy
+
+# Our acknowledgments page
+Acknowledgments: https://ultrablack.run/security-acknowledgments
+
+# Preferred languages
+Preferred-Languages: en, fr
+
+# Canonical URL for this file
+Canonical: https://ultrablack.run/.well-known/security.txt
+
+# Expiration date
+Expires: 2026-01-27T00:00:00.000Z
+
+# Additional Information
+# We appreciate responsible disclosure of security vulnerabilities.
+# Please allow us 90 days to address the issue before public disclosure.
+# We are committed to working with security researchers and will acknowledge your efforts.

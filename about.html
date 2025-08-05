@@ -14,10 +14,10 @@
     <link rel="canonical" href="https://ultrablack.run/about" />
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -348,46 +348,47 @@
 
     <!-- Footer -->
     <!-- Redesigned Footer -->
-    <footer class="bg-black text-gray-400 pt-16 pb-12">
-        <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-10 gap-8 mb-20">
-                <div class="md:col-span-3">
-                    <h4 class="text-lg font-bold text-white mb-4">Run the culture.</h4>
-                    <p>Toronto—Canada</p>
-                    <p id="footer-time"></p>
-                </div>
-                <div class="md:col-span-3">
-                    <p class="mb-4">Sign up for our newsletter:</p>
-                    <input type="email" placeholder="Your Email" class="footer-input">
-                </div>
-                <div class="md:col-span-2">
-                    <ul class="space-y-2">
-                        <li><a href="#" class="premium-link">Run Clubs</a></li>
-                        <li><a href="#" class="premium-link">Fitness</a></li>
-                        <li><a href="#" class="premium-link">Wellness</a></li>
-                        <li><a href="#" class="premium-link">About</a></li>
-                    </ul>
-                </div>
-                <div class="md:col-span-2">
-                    <ul class="space-y-2">
-                        <li><a href="#" class="premium-link">Store</a></li>
-                        <li><a href="#" class="premium-link">Contact</a></li>
-                        <li><a href="#" class="premium-link">Instagram &rarr;</a></li>
-                        <li><a href="#" class="premium-link">TikTok &rarr;</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="border-t border-gray-800 pt-8 flex justify-between items-end">
-                <div class="flex space-x-4 text-sm">
-                    <p>&copy; 2025</p>
-                    <a href="#" class="premium-link">Terms of use</a>
-                </div>
-                <div class="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-none whitespace-nowrap">
-                    ULTRA BLACK
-                </div>
-            </div>
-        </div>
-    </footer>
+   <footer class="bg-black text-gray-400 pt-16 pb-12">
+       <div class="container mx-auto px-6">
+           <div class="grid grid-cols-1 md:grid-cols-10 gap-8 mb-20">
+               <div class="md:col-span-3">
+                   <h4 class="text-lg font-bold text-white mb-4">Run the culture.</h4>
+                   <p>Toronto—Canada</p>
+                   <p id="footer-time"></p>
+               </div>
+               <div class="md:col-span-3">
+                   <p class="mb-4">Sign up for our newsletter:</p>
+                   <input type="email" placeholder="Your Email" class="footer-input">
+               </div>
+               <div class="md:col-span-2">
+                   <ul class="space-y-2">
+                       <li><a href="runclubs.html" class="premium-link">Run Clubs</a></li>
+                       <li><a href="fitness.html" class="premium-link">Fitness</a></li>
+                       <li><a href="wellness.html" class="premium-link">Wellness</a></li>
+                       <li><a href="about.html" class="premium-link">About</a></li>
+                   </ul>
+               </div>
+               <div class="md:col-span-2">
+                   <ul class="space-y-2">
+                       <li><a href="store.html" class="premium-link">Store</a></li>
+                       <li><a href="contact.html" class="premium-link">Contact</a></li>
+                       <li><a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" class="premium-link">Instagram &rarr;</a></li>
+                       <li><a href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer" class="premium-link">TikTok &rarr;</a></li>
+                   </ul>
+               </div>
+           </div>
+
+           <div class="border-t border-gray-800 pt-8 flex justify-between items-end">
+               <div class="flex space-x-4 text-sm">
+                   <p>&copy; 2025</p>
+                   <a href="terms.html" class="premium-link">Terms of use</a>
+               </div>
+               <div class="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-none whitespace-nowrap">
+                   ULTRA BLACK
+               </div>
+           </div>
+       </div>
+   </footer>
 
     <!-- Swiper.js JS -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -401,7 +402,6 @@
     });
 }
 document.addEventListener('DOMContentLoaded', function () {
-    updateCartCount();
             gsap.registerPlugin(ScrollTrigger);
 
             // --- Mobile Menu ---
@@ -410,6 +410,11 @@ document.addEventListener('DOMContentLoaded', function () {
             mobileMenuButton.addEventListener('click', () => {
                 mobileMenu.classList.toggle('hidden');
             });
+            
+            // Initialize cart count
+            if(typeof updateCartCount === 'function'){
+                updateCartCount();
+            }
 
             // --- GSAP Animations ---
             gsap.from("#hero-title", { opacity: 0, y: 50, duration: 1, ease: "power3.out" });

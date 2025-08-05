@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ultra Black - Fitness</title>
+<!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -135,15 +140,15 @@
     <!-- Navigation -->
     <nav class="glossy-header fixed top-0 left-0 right-0 z-50">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-black tracking-wider premium-link">ULTRA BLACK</a>
+            <a href="index.html" class="text-2xl font-black tracking-wider premium-link">ULTRA BLACK</a>
             <div class="hidden lg:flex items-center space-x-8">
-                <a href="#" class="premium-link text-gray-300">Run Clubs</a>
-                <a href="#" class="premium-link text-white font-bold">Fitness</a>
-                <a href="#" class="premium-link text-gray-300">Wellness</a>
-                <a href="#" class="premium-link text-gray-300">About</a>
-                <a href="#" class="premium-link text-gray-300">Store</a>
-                <a href="#" class="premium-link text-gray-300">Donations</a>
-                <a href="#" class="premium-link text-gray-300">Scholarship</a>
+                <a href="runclubs.html" class="premium-link text-gray-300">Run Clubs</a>
+                <a href="fitness.html" class="premium-link text-white font-bold">Fitness</a>
+                <a href="wellness.html" class="premium-link text-gray-300">Wellness</a>
+                <a href="about.html" class="premium-link text-gray-300">About</a>
+                <a href="store.html" class="premium-link text-gray-300">Store</a>
+                <a href="donation.html" class="premium-link text-gray-300">Donations</a>
+                <a href="scholarship.html" class="premium-link text-gray-300">Scholarship</a>
             </div>
             <div class="hidden lg:flex items-center space-x-6">
                  <a href="cart.html" class="relative text-white hover:text-gray-300 transition-colors">
@@ -152,7 +157,7 @@
                     </svg>
                     <span id="cart-count" class="absolute -top-2 -right-2 bg-white text-black rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">0</span>
                 </a>
-                <a href="#" class="bg-white text-black font-bold py-3 px-6 rounded-full premium-button hover:bg-gray-200 hover:scale-105">
+                <a href="runclubs.html" class="bg-white text-black font-bold py-3 px-6 rounded-full premium-button hover:bg-gray-200 hover:scale-105">
                     Join the Movement
                 </a>
             </div>
@@ -204,7 +209,7 @@
                     Running not your thing? No problem. Fitness is more than just miles on the pavement. We host monthly workouts, fun movement challenges, and seasonal sports teams. There’s something for everyone to get moving, connect, and feel good. Check out our event calendar for upcoming workouts, challenges and sports team opportunities.
                 </p>
                 <p class="text-lg md:text-xl text-gray-300 leading-relaxed">
-                    Have a workout or challenge that you would like to host with Ultra Black? Visit our <a href="#" class="contact-glow-link">Contact Us page</a> for details on how to connect.
+                    Have a workout or challenge that you would like to host with Ultra Black? Visit our <a href="contact.html" class="contact-glow-link">Contact Us page</a> for details on how to connect.
                 </p>
             </div>
         </section>
@@ -258,18 +263,18 @@
                 </div>
                 <div class="md:col-span-2">
                     <ul class="space-y-2">
-                        <li><a href="#" class="premium-link">Run Clubs</a></li>
-                        <li><a href="#" class="premium-link">Fitness</a></li>
-                        <li><a href="#" class="premium-link">Wellness</a></li>
-                        <li><a href="#" class="premium-link">About</a></li>
+                        <li><a href="runclubs.html" class="premium-link">Run Clubs</a></li>
+                        <li><a href="fitness.html" class="premium-link">Fitness</a></li>
+                        <li><a href="wellness.html" class="premium-link">Wellness</a></li>
+                        <li><a href="about.html" class="premium-link">About</a></li>
                     </ul>
                 </div>
                 <div class="md:col-span-2">
                     <ul class="space-y-2">
-                        <li><a href="#" class="premium-link">Store</a></li>
-                        <li><a href="#" class="premium-link">Contact</a></li>
-                        <li><a href="#" class="premium-link">Instagram &rarr;</a></li>
-                        <li><a href="#" class="premium-link">TikTok &rarr;</a></li>
+                        <li><a href="store.html" class="premium-link">Store</a></li>
+                        <li><a href="contact.html" class="premium-link">Contact</a></li>
+                        <li><a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" class="premium-link">Instagram &rarr;</a></li>
+                        <li><a href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer" class="premium-link">TikTok &rarr;</a></li>
                     </ul>
                 </div>
             </div>
@@ -277,7 +282,7 @@
             <div class="border-t border-gray-800 pt-8 flex justify-between items-end">
                 <div class="flex space-x-4 text-sm">
                     <p>&copy; 2025</p>
-                    <a href="#" class="premium-link">Terms of use</a>
+                    <a href="terms.html" class="premium-link">Terms of use</a>
                 </div>
                 <div class="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-none whitespace-nowrap">
                     ULTRA BLACK
@@ -435,17 +440,9 @@
             setInterval(updateTime, 1000);
 
             // --- Cart Count ---
-            function updateCartCount() {
-                let count = 0;
-                try {
-                    const stored = localStorage.getItem('cartCount');
-                    count = stored ? parseInt(stored, 10) : 0;
-                    if (isNaN(count)) count = 0;
-                } catch (e) { count = 0; }
-                document.getElementById('cart-count').textContent = count;
-                document.getElementById('mobile-cart-count').textContent = count;
-            }
-            updateCartCount();
+           if(typeof updateCartCount === 'function'){
+               updateCartCount();
+           }
         });
     </script>
 </body>

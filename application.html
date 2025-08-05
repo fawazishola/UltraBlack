@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ultra Black - Scholarship Application</title>
+<!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -157,7 +162,7 @@
     <!-- Navigation -->
     <nav class="glossy-header sticky top-0 left-0 right-0 z-50">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-black tracking-wider premium-link">ULTRA BLACK</a>
+            <a href="index.html" class="text-2xl font-black tracking-wider premium-link">ULTRA BLACK</a>
         </div>
     </nav>
 
@@ -237,36 +242,47 @@
                         <div class="form-step" data-step="4">
                              <h2 class="text-2xl font-bold mb-6">Review Your Application</h2>
                              <div id="review-content" class="space-y-4 text-gray-300"></div>
-                             <footer class="bg-black text-gray-400 pt-16 pb-12">
-                                <div class="container mx-auto px-6">
-                                    <div class="flex flex-wrap justify-center -mx-4">
-                                        <div class="w-full lg:w-1/3 xl:w-1/3 p-4">
-                                            <h3 class="text-lg font-bold mb-4">Newsletter</h3>
-                                            <p class="text-gray-500">Stay up to date with the latest news and updates from Ultra Black.</p>
-                                            <form>
-                                                <input type="email" class="w-full p-2 mb-4 border border-gray-400 rounded" placeholder="Enter your email address">
-                                                <button type="submit" class="w-full p-2 bg-blue-600 text-white rounded">Subscribe</button>
-                                            </form>
-                                        </div>
-                                        <div class="w-full lg:w-1/3 xl:w-1/3 p-4">
-                                            <h3 class="text-lg font-bold mb-4">Navigation</h3>
-                                            <ul>
-                                                <li class="mb-2"><a href="#" class="text-gray-500 hover:text-white">Home</a></li>
-                                                <li class="mb-2"><a href="#" class="text-gray-500 hover:text-white">About</a></li>
-                                                <li class="mb-2"><a href="#" class="text-gray-500 hover:text-white">Contact</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="w-full lg:w-1/3 xl:w-1/3 p-4">
-                                            <h3 class="text-lg font-bold mb-4">Branding</h3>
-                                            <p class="text-gray-500">Ultra Black is a registered trademark of Ultra Black Inc.</p>
-                                            <p class="text-gray-500">&copy; 2023 Ultra Black Inc. All rights reserved.</p>
-                                        </div>
-                                    </div>
-                                    <div class="text-center mt-8">
-                                        <p class="text-gray-500">Current time is <span id="footer-time"></span></p>
-                                    </div>
-                                </div>
-                            </footer>
+   <footer class="bg-black text-gray-400 pt-16 pb-12">
+       <div class="container mx-auto px-6">
+           <div class="grid grid-cols-1 md:grid-cols-10 gap-8 mb-20">
+               <div class="md:col-span-3">
+                   <h4 class="text-lg font-bold text-white mb-4">Run the culture.</h4>
+                   <p>Toronto—Canada</p>
+                   <p id="footer-time"></p>
+               </div>
+               <div class="md:col-span-3">
+                   <p class="mb-4">Sign up for our newsletter:</p>
+                   <input type="email" placeholder="Your Email" class="footer-input">
+               </div>
+               <div class="md:col-span-2">
+                   <ul class="space-y-2">
+                       <li><a href="runclubs.html" class="premium-link">Run Clubs</a></li>
+                       <li><a href="fitness.html" class="premium-link">Fitness</a></li>
+                       <li><a href="wellness.html" class="premium-link">Wellness</a></li>
+                       <li><a href="about.html" class="premium-link">About</a></li>
+                   </ul>
+               </div>
+               <div class="md:col-span-2">
+                   <ul class="space-y-2">
+                       <li><a href="store.html" class="premium-link">Store</a></li>
+                       <li><a href="contact.html" class="premium-link">Contact</a></li>
+                       <li><a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" class="premium-link">Instagram &rarr;</a></li>
+                       <li><a href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer" class="premium-link">TikTok &rarr;</a></li>
+                   </ul>
+               </div>
+           </div>
+
+           <div class="border-t border-gray-800 pt-8 flex justify-between items-end">
+               <div class="flex space-x-4 text-sm">
+                   <p>&copy; 2025</p>
+                   <a href="terms.html" class="premium-link">Terms of use</a>
+               </div>
+               <div class="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-none whitespace-nowrap">
+                   ULTRA BLACK
+               </div>
+           </div>
+       </div>
+   </footer>
                              <div class="mt-6 pt-6 border-t border-gray-700">
                                  <label class="flex items-center">
                                      <input type="checkbox" id="declaration" class="w-5 h-5 bg-gray-700 border-gray-600 rounded" required>
