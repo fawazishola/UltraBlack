@@ -33,20 +33,7 @@
     <meta name="twitter:description" content="Learn the story behind Ultra Black. Our mission, our vision, and the team dedicated to empowering the Black community through wellness and movement.">
     <meta name="twitter:image" content="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&h=630&fit=crop">
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Google Fonts: Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-
-    <!-- Swiper.js CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-
-    <!-- GSAP (GreenSock Animation Platform) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="assets/main.86ff73c8.css">
 
     <style>
         body {
@@ -390,94 +377,7 @@
        </div>
    </footer>
 
-    <!-- Swiper.js JS -->
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-
-    <script>
-        function updateCartCount() {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const totalItems = cart.reduce((total, item) => total + (item.quantity || 1), 0);
-    document.querySelectorAll('#cart-count, #mobile-cart-count').forEach(el => {
-        el.textContent = totalItems;
-    });
-}
-document.addEventListener('DOMContentLoaded', function () {
-            gsap.registerPlugin(ScrollTrigger);
-
-            // --- Mobile Menu ---
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
-            
-            // Initialize cart count
-            if(typeof updateCartCount === 'function'){
-                updateCartCount();
-            }
-
-            // --- GSAP Animations ---
-            gsap.from("#hero-title", { opacity: 0, y: 50, duration: 1, ease: "power3.out" });
-            
-            gsap.from("#about-us-section > div > div", {
-                opacity: 0,
-                y: 50,
-                duration: 1,
-                stagger: 0.2,
-                ease: "power3.out",
-                scrollTrigger: { trigger: "#about-us-section", start: "top 80%" }
-            });
-            
-            gsap.from("#meet-the-team-section > div > div", {
-                opacity: 0,
-                y: 50,
-                duration: 1,
-                ease: "power3.out",
-                scrollTrigger: { trigger: "#meet-the-team-section", start: "top 80%" }
-            });
-
-            gsap.from("#contact-form-section > div > *", {
-                opacity: 0,
-                y: 50,
-                duration: 1,
-                stagger: 0.15,
-                ease: "power3.out",
-                scrollTrigger: { trigger: "#contact-form-section", start: "top 80%" }
-            });
-
-            // --- Swiper Initialization ---
-            var swiper = new Swiper('.swiper-container', {
-                effect: 'coverflow',
-                grabCursor: true,
-                centeredSlides: true,
-                slidesPerView: 'auto',
-                loop: true,
-                coverflowEffect: {
-                    rotate: 50,
-                    stretch: 0,
-                    depth: 100,
-                    modifier: 1,
-                    slideShadows: true,
-                },
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
-                },
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
-                breakpoints: {
-                    // when window width is >= 768px
-                    768: {
-                        slidesPerView: 3,
-                    }
-                }
-            });
-
-            // --- Footer Time ---
-            // ... same as other pages ...
-        });
-    </script>
+      <script type="module" src="assets/cart.f78a7330.js"></script>
+      <script type="module" src="assets/about.d68f56df.js"></script>
 </body>
 </html>
