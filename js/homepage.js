@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:3000' : 'https://api.ultrablack.run';
+    const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:3000' : 'https://ultra-black.vercel.app';
     const API_URL = `${API_BASE}/api/homepage-content`;
 
     const elementMapping = {

@@ -52,14 +52,15 @@ app.use(basicSecurity);
 // Configure CORS properly
 const corsOptions = {
   origin: function (origin, callback) {
-    const allowedOrigins = process.env.ALLOWED_ORIGINS 
-      ? process.env.ALLOWED_ORIGINS.split(',') 
-      : ['http://localhost:3000', 'http://localhost:5000'];
-    
+    const allowedOrigins = (process.env.ALLOWED_ORIGINS
+      ? process.env.ALLOWED_ORIGINS.split(',')
+      : ['http://localhost:3000', 'http://localhost:5000']
+    ).map(o => o && o.trim()).filter(Boolean);
+
     // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
-    
-    if (allowedOrigins.indexOf(origin) !== -1) {
+
+    if (allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
@@ -99,9 +100,13 @@ app.use('/public', express.static(path.join(__dirname, '../public'), {
   etag: true
 }));
 
-// Route for the root path to serve index.html
+// API root: return basic info (avoid serving missing index.html in serverless)
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../index.html'));
+  res.status(200).json({
+    service: 'Ultra Black API',
+    health: '/health',
+    homepageContent: '/api/homepage-content'
+  });
 });
 
 // Notion Client
