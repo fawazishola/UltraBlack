@@ -11,5 +11,11 @@
       "src": "/(.*)",
       "dest": "index.js"
     }
+  ],
+  "crons": [
+    {
+      "path": "/api/internal/cron/refresh-homepage",
+      "schedule": "0 3 * * *"
+    }
   ]
 }
