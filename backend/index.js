@@ -93,7 +93,11 @@ app.get('/health', (req, res) => {
 // Serve static files from the project root (for HTML, etc.)
 app.use(express.static(path.join(__dirname, '../')));
 // Serve the public directory for cached images
-app.use('/public', express.static(path.join(__dirname, '../public')));
+app.use('/public', express.static(path.join(__dirname, '../public'), {
+  maxAge: '30d',
+  immutable: true,
+  etag: true
+}));
 
 // Route for the root path to serve index.html
 app.get('/', (req, res) => {
@@ -294,6 +298,7 @@ app.get('/api/homepage-content', async (req, res, next) => {
   try {
     const data = await fs.readFile(HOMEPAGE_CACHE_FILE, 'utf-8');
     res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Cache-Control', 'public, max-age=3600, stale-while-revalidate=86400');
     res.send(data);
   } catch (error) {
     // If cache file doesn't exist, trigger an update and ask client to retry.
@@ -354,6 +359,40 @@ app.post('/api/admin/refresh-cache',
     }
   }
 );
+
+app.post('/api/admin/refresh-homepage', 
+  validateApiKey,
+  async (req, res, next) => {
+    try {
+      await updateHomepageCache();
+      res.json({ 
+        success: true,
+        message: 'Homepage cache refreshed',
+        timestamp: new Date().toISOString()
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+// Cron endpoint for Vercel Cron (GET) with light auth
+app.get('/api/internal/cron/refresh-homepage', async (req, res, next) => {
+  try {
+    const userAgent = req.headers['user-agent'] || '';
+    const isVercelCron = req.headers['x-vercel-cron'] === '1' || /vercel-cron/i.test(userAgent);
+    const token = req.query.token || req.headers['x-cron-token'];
+    const envToken = process.env.HOMEPAGE_CRON_TOKEN;
+
+    if (!isVercelCron && (!envToken || token !== envToken)) {
+      return res.status(401).json({ error: 'Unauthorized', message: 'Invalid cron authorization' });
+    }
+
+    await updateHomepageCache();
+    res.json({ success: true, message: 'Homepage cache refreshed (cron)', timestamp: new Date().toISOString() });
+  } catch (error) {
+    next(error);
+  }
+});
 
 // Scholarship Applications route with rate limiting
 app.use('/api/applications', formLimiter);
@@ -435,14 +474,13 @@ const server = app.listen(port, async () => {
   console.log('Performing initial homepage cache update on server start...');
   await updateHomepageCache();
 
-  // Schedule the cache to update twice daily (at 1 AM and 1 PM)
-  cron.schedule('0 1,13 * * *', () => {
+  // Daily at 03:00 (override with HOMEPAGE_CACHE_CRON)
+  const CRON_SCHEDULE = process.env.HOMEPAGE_CACHE_CRON || '0 3 * * *';
+  console.log(`Scheduling homepage cache update with cron: ${CRON_SCHEDULE}`);
+  cron.schedule(CRON_SCHEDULE, () => {
     console.log('Running scheduled homepage cache update...');
     updateHomepageCache();
-  }, {
-    scheduled: true,
-    timezone: "America/New_York"
-  });
+  }, { scheduled: true, timezone: "America/New_York" });
 
   console.log(`Ultra Black API server running on port ${port}`);
   console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);

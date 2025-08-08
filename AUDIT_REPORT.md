@@ -87,19 +87,18 @@ backend/
 
 ### Security Vulnerabilities
 1. **Critical:**
-   - No rate limiting on API endpoints
-   - CORS allows all origins (`cors()` with no config)
-   - Basic API key auth vulnerable to replay attacks
-   - No input validation/sanitization
+   - Global rate limiting is enabled (`generalLimiter`); consider per-route tuning and monitoring for abuse.
+   - CORS is restricted via `ALLOWED_ORIGINS`; ensure production domains are configured correctly.
+   - Admin endpoint uses a static API key; consider JWT or signed requests and key rotation.
+   - Input validation and sanitization are implemented; maintain coverage and add schema tests.
 
 2. **Medium:**
-   - Error messages expose internal structure
-   - No request logging for security monitoring
-   - Missing HTTPS enforcement
+   - Add structured request/security logging for sensitive routes.
+   - Enforce HTTPS in production via proxy/hosting configuration (and set `trust proxy` if applicable).
 
 ### Missing Features
-- No pagination for large datasets
-- No filtering/sorting capabilities
+- Pagination exists for products; consider adding pagination to run clubs, wellness, and pages.
+- Products support category filtering; add sorting and filters to other endpoints as needed.
 - No webhook support for Notion updates
 - No API versioning strategy
 
@@ -125,7 +124,7 @@ backend/
 
 ### Incomplete Features
 - Donation page lacks payment processing
-- Scholarship application doesn't submit to backend
+- Scholarship application submits to backend; persistent file storage and email notifications pending
 - Run clubs page missing location/map integration
 - Event registration not implemented
 
@@ -150,8 +149,8 @@ backend/
 
 ### Backend Performance
 - Good: Redis caching implementation
-- Bad: No connection pooling for Redis
-- Missing: Response compression
+- Note: Redis client includes reconnect strategy; monitor connection health.
+- Compression enabled via `compression` middleware
 - Missing: Database query optimization
 
 ---
@@ -194,7 +193,7 @@ backend/
    - No Content Security Policy
 
 2. **API Security:**
-   - No rate limiting
+   - No rate limiting on API endpoints
    - No request validation
    - Sensitive errors exposed
 

@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const API_URL = 'http://localhost:3000/api/homepage-content';
+    const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:3000' : 'https://api.ultrablack.run';
+    const API_URL = `${API_BASE}/api/homepage-content`;
 
     const elementMapping = {
       'Hero': 'hero-image-container',
@@ -7,6 +8,14 @@ document.addEventListener('DOMContentLoaded', () => {
       'What We Do': 'what-we-do-image-container',
       'Gallery': 'gallery-container'
     };
+
+    function resolveImageUrl(url) {
+      if (!url) return url;
+      if (url.startsWith('/public/')) {
+        return `${API_BASE}${url}`;
+      }
+      return url;
+    }
 
     // ugcMapping is no longer needed, as we will generate gallery items dynamically.
 
@@ -49,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     galleryItem.className = 'city-tile relative h-96 rounded-lg overflow-hidden group';
 
                     const img = document.createElement('img');
-                    img.src = imageUrl;
+                    img.src = resolveImageUrl(imageUrl);
                     img.alt = item.caption || item.title || 'Gallery image';
                     img.className = 'absolute w-full h-full object-cover transition-transform duration-500 group-hover:scale-110';
 
@@ -67,13 +76,14 @@ document.addEventListener('DOMContentLoaded', () => {
               // container.innerHTML = ''; // This was removing the overlays
               if (item.type === 'Hero') {
                   container.innerHTML = ''; // Clear for hero only
-                  container.style.backgroundImage = `url('${item.images[0]}')`;
+                  const heroUrl = resolveImageUrl(item.images[0]);
+                  container.style.backgroundImage = `url('${heroUrl}')`;
                   container.style.backgroundSize = 'cover';
                   container.style.backgroundPosition = 'center';
               } else {
                   // Dynamically create the entire tile content
                   const img = document.createElement('img');
-                  img.src = item.images[0];
+                  img.src = resolveImageUrl(item.images[0]);
                   img.alt = item.caption || item.title || item.type;
                   img.className = 'absolute w-full h-full object-cover transition-transform duration-500 group-hover:scale-110';
 
@@ -113,4 +123,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     fetchHomepageContent().then(renderImages);
-});
+  });

@@ -1,0 +1,32 @@
+name: Daily homepage cache refresh fallback
+
+on:
+  schedule:
+    - cron: '0 3 * * *' # 03:00 UTC daily
+  workflow_dispatch:
+
+jobs:
+  ping-cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping refresh endpoint (with token if set)
+        env:
+          API_BASE: ${{ secrets.API_BASE_URL }}
+          CRON_TOKEN: ${{ secrets.HOMEPAGE_CRON_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "${API_BASE:-}" ]; then
+            echo "API_BASE_URL secret is not set. Please add it to repo secrets." >&2
+            exit 1
+          fi
+          URL="$API_BASE/api/internal/cron/refresh-homepage"
+          if [ -n "${CRON_TOKEN:-}" ]; then
+            URL="$URL?token=$CRON_TOKEN"
+          fi
+          echo "Requesting: $URL"
+          HTTP_STATUS=$(curl -s -o /tmp/resp.json -w "%{http_code}" "$URL")
+          echo "Status: $HTTP_STATUS"
+          cat /tmp/resp.json
+          if [ "$HTTP_STATUS" -lt 200 ] || [ "$HTTP_STATUS" -ge 300 ]; then
+            exit 1
+          fi 
