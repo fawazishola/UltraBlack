@@ -1,8 +1,11 @@
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const compression = require('compression');
 const { Client } = require('@notionhq/client');
 const redis = require('redis');
+const cron = require('node-cron');
+const fs = require('fs').promises;
 require('dotenv').config();
 
 // Import security middleware and validators
@@ -19,7 +22,8 @@ const {
   commonValidators 
 } = require('./validators');
 const { formatNotionPage, isRateLimitError } = require('./utils/notionUtils');
-const { adminAuth } = require('./middleware/auth');
+const { updateHomepageCache } = require('./utils/update-homepage-cache');
+const { adminAuth, verifyToken } = require('./middleware/auth');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -79,11 +83,21 @@ app.use('/api/', generalLimiter);
 
 // Health check endpoint (no rate limiting)
 app.get('/health', (req, res) => {
-  res.status(200).json({ 
+  res.status(200).json({
     status: 'healthy',
     timestamp: new Date().toISOString(),
     uptime: process.uptime()
   });
+});
+
+// Serve static files from the project root (for HTML, etc.)
+app.use(express.static(path.join(__dirname, '../')));
+// Serve the public directory for cached images
+app.use('/public', express.static(path.join(__dirname, '../public')));
+
+// Route for the root path to serve index.html
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../index.html'));
 });
 
 // Notion Client
@@ -124,7 +138,7 @@ redisClient.on('connect', () => {
 })();
 
 // Cache duration in seconds (1 hour)
-const CACHE_DURATION = 3600;
+const CACHE_DURATION = 60;
 
 // Helper function to get data from Notion with caching
 async function getNotionData(databaseId, cacheKey, filters = {}) {
@@ -143,42 +157,44 @@ async function getNotionData(databaseId, cacheKey, filters = {}) {
     }
 
     // Fetch from Notion with pagination support
-    let allResults = [];
+    const allResults = [];
     let hasMore = true;
-    let startCursor = undefined;
+    let startCursor;
 
     while (hasMore) {
       const response = await notion.databases.query({
         database_id: databaseId,
         start_cursor: startCursor,
-        page_size: 100,
+        page_size: 100, // Max page size
         ...filters
       });
 
-      allResults = [...allResults, ...response.results];
+      allResults.push(...response.results);
       hasMore = response.has_more;
       startCursor = response.next_cursor;
     }
 
-    const data = allResults.map(page => formatNotionPage(page));
+    const formattedData = allResults.map(formatNotionPage);
 
-    // Store in cache if Redis is available
+    // Cache the result if Redis is connected
     if (redisClient.isOpen) {
       try {
-        await redisClient.setEx(cacheKey, CACHE_DURATION, JSON.stringify(data));
+        await redisClient.set(cacheKey, JSON.stringify(formattedData), {
+          EX: CACHE_DURATION
+        });
       } catch (cacheError) {
         console.error('Cache write error:', cacheError);
-        // Continue without caching
       }
     }
 
-    return data;
+    return formattedData;
   } catch (error) {
-    console.error(`Error fetching data for ${cacheKey}:`, error);
+    console.error(`Error fetching data from Notion DB ${databaseId}:`, error);
+    // Check for rate limit error
     if (isRateLimitError(error)) {
       throw new Error('Notion API rate limit exceeded. Please try again later.');
     }
-    throw new Error('Failed to fetch data from Notion');
+    throw new Error(`Failed to fetch data from Notion: ${error.message}`);
   }
 }
 
@@ -272,12 +288,23 @@ app.get('/api/scholarship', async (req, res, next) => {
   }
 });
 
-// Homepage Content
+// Homepage Content (from local cache)
+const HOMEPAGE_CACHE_FILE = path.resolve(__dirname, './cache/homepage.json');
 app.get('/api/homepage-content', async (req, res, next) => {
   try {
-    const data = await getNotionData(process.env.NOTION_HOMEPAGE_CONTENT_DB_ID, 'homepage_content');
-    res.json(data);
+    const data = await fs.readFile(HOMEPAGE_CACHE_FILE, 'utf-8');
+    res.setHeader('Content-Type', 'application/json');
+    res.send(data);
   } catch (error) {
+    // If cache file doesn't exist, trigger an update and ask client to retry.
+    if (error.code === 'ENOENT') {
+      console.log('Homepage cache not found. Triggering update...');
+      updateHomepageCache(); // Run it now
+      return res.status(503).json({
+        error: 'Service Unavailable',
+        message: 'Homepage content is currently being updated. Please try again in a moment.'
+      });
+    }
     next(error);
   }
 });
@@ -403,7 +430,20 @@ process.on('SIGTERM', async () => {
 });
 
 // Start server
-const server = app.listen(port, () => {
+const server = app.listen(port, async () => {
+  // Run the cache update once on startup
+  console.log('Performing initial homepage cache update on server start...');
+  await updateHomepageCache();
+
+  // Schedule the cache to update twice daily (at 1 AM and 1 PM)
+  cron.schedule('0 1,13 * * *', () => {
+    console.log('Running scheduled homepage cache update...');
+    updateHomepageCache();
+  }, {
+    scheduled: true,
+    timezone: "America/New_York"
+  });
+
   console.log(`Ultra Black API server running on port ${port}`);
   console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log(`CORS origins: ${process.env.ALLOWED_ORIGINS || 'localhost only'}`);

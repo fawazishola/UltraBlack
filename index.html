@@ -17,6 +17,9 @@
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
     <link rel="manifest" href="site.webmanifest">
+
+    <!-- Preload Hero Image for faster loading -->
+    <link rel="preload" href="http://localhost:3000/api/homepage-content?type=Hero" as="image">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -113,6 +116,10 @@
         .city-tile:focus {
             outline: none;
         }
+        .content-loading {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -197,24 +204,8 @@
                 <h2 class="text-4xl font-bold text-center mb-12">Discover Our Purpose</h2>
                 <div class="grid md:grid-cols-2 gap-8">
                     <!-- Tile 1: Who We Are -->
-                                        <a href="about.html" class="city-tile relative h-96 rounded-lg overflow-hidden group" id="who-we-are-image-container">
-                                            <div class="absolute inset-0 bg-black/50"></div>
-                                            <div class="relative h-full flex flex-col justify-end p-8 text-white">
-                                                <h3 class="text-4xl font-black">Who We Are</h3>
-                                                <div class="mt-4 bg-white text-black font-bold py-3 px-6 rounded-full self-start group-hover:bg-gray-200 transition-colors">
-                                                    Our Story
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="about.html" class="city-tile relative h-96 rounded-lg overflow-hidden group" id="what-we-do-image-container">
-                                            <div class="absolute inset-0 bg-black/50"></div>
-                                            <div class="relative h-full flex flex-col justify-end p-8 text-white">
-                                                <h3 class="text-4xl font-black">What We Do</h3>
-                                                <div class="mt-4 bg-white text-black font-bold py-3 px-6 rounded-full self-start group-hover:bg-gray-200 transition-colors">
-                                                    Our Mission
-                                                </div>
-                                            </div>
-                                        </a>
+                                        <a href="about.html" class="city-tile content-loading relative h-96 rounded-lg overflow-hidden group" id="who-we-are-image-container"></a>
+                                        <a href="about.html" class="city-tile content-loading relative h-96 rounded-lg overflow-hidden group" id="what-we-do-image-container"></a>
                 </div>
             </div>
         </section>
@@ -223,7 +214,7 @@
         <section class="py-16">
             <div class="container mx-auto px-6">
                 <h2 class="text-4xl font-bold text-center mb-12">The Movement in Motion</h2>
-                <div class="gallery-grid" id="gallery-container"></div>
+                <div class="gallery-grid content-loading" id="gallery-container"></div>
             </div>
         </section>
 

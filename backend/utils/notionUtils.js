@@ -55,10 +55,12 @@ function formatNotionPage(page) {
       slug: getTextFromProperty(props.Slug),
       lastEdited: page.last_edited_time || '',
       status: props.Status?.select?.name || 'Draft',
-      
-      // Additional properties for flexibility
       caption: getTextFromProperty(props.Caption),
       type: props.Type?.select?.name,
+      // Run Club specific fields
+      meetingInfo: getTextFromProperty(props['Meeting Info']),
+      leaders: getTextFromProperty(props.Leaders),
+      mapUrl: props['Map URL']?.url,
     };
 
     if (props['Display Order'] && props['Display Order'].number !== null) {

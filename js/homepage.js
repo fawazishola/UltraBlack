@@ -57,22 +57,49 @@ document.addEventListener('DOMContentLoaded', () => {
                     galleryContainer.appendChild(galleryItem);
                     console.log(`Rendered gallery image into #${containerId}`);
                 });
+                // Reveal the container after loading images
+                galleryContainer.style.opacity = 1;
             }
         } else { // Handle Hero, Who We Are, What We Do
           const container = document.getElementById(containerId);
           if (container) {
             if (item.images && item.images.length > 0) {
-              container.innerHTML = ''; // Clear for all types
+              // container.innerHTML = ''; // This was removing the overlays
               if (item.type === 'Hero') {
+                  container.innerHTML = ''; // Clear for hero only
                   container.style.backgroundImage = `url('${item.images[0]}')`;
                   container.style.backgroundSize = 'cover';
                   container.style.backgroundPosition = 'center';
               } else {
+                  // Dynamically create the entire tile content
                   const img = document.createElement('img');
                   img.src = item.images[0];
                   img.alt = item.caption || item.title || item.type;
                   img.className = 'absolute w-full h-full object-cover transition-transform duration-500 group-hover:scale-110';
+
+                  const overlay = document.createElement('div');
+                  overlay.className = 'absolute inset-0 bg-black/50';
+
+                  const textContainer = document.createElement('div');
+                  textContainer.className = 'relative h-full flex flex-col justify-end p-8 text-white';
+
+                  const title = document.createElement('h3');
+                  title.className = 'text-4xl font-black';
+                  title.textContent = item.title;
+
+                  const button = document.createElement('div');
+                  button.className = 'mt-4 bg-white text-black font-bold py-3 px-6 rounded-full self-start group-hover:bg-gray-200 transition-colors';
+                  button.textContent = item.caption || 'Learn More';
+
+                  textContainer.appendChild(title);
+                  textContainer.appendChild(button);
+
                   container.appendChild(img);
+                  container.appendChild(overlay);
+                  container.appendChild(textContainer);
+
+                  // Reveal the container after loading the image
+                  container.style.opacity = 1;
               }
               console.log(`Rendered ${item.type} image into #${containerId}`);
             }

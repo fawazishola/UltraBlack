@@ -1,0 +1,73 @@
+[
+  {
+    "id": "24637e50-6f95-805c-af8d-e36928796abf",
+    "title": "",
+    "description": "",
+    "images": [
+      "/public/images/homepage/IMG-7726.jpg",
+      "/public/images/homepage/IMG-0260.jpg",
+      "/public/images/homepage/DSC05606.jpg",
+      "/public/images/homepage/IMG-0469.jpg",
+      "/public/images/homepage/IMG-6346.jpg",
+      "/public/images/homepage/UB-Canadian-Running-Shoot-124.jpg",
+      "/public/images/homepage/UB-Canadian-Running-Shoot-155.jpg",
+      "/public/images/homepage/team-ultra-black-hamilton.jpg"
+    ],
+    "tags": [],
+    "slug": "",
+    "lastEdited": "2025-08-05T23:15:00.000Z",
+    "status": "Draft",
+    "caption": "",
+    "type": "Gallery",
+    "meetingInfo": "",
+    "leaders": ""
+  },
+  {
+    "id": "24637e50-6f95-8066-84b1-cc0abb185bba",
+    "title": "",
+    "description": "",
+    "images": [
+      "/public/images/homepage/DSC01868.jpg"
+    ],
+    "tags": [],
+    "slug": "",
+    "lastEdited": "2025-08-05T02:05:00.000Z",
+    "status": "Draft",
+    "caption": "",
+    "type": "Hero",
+    "meetingInfo": "",
+    "leaders": ""
+  },
+  {
+    "id": "24637e50-6f95-805f-a19a-ccfd5867b820",
+    "title": "",
+    "description": "",
+    "images": [
+      "/public/images/homepage/DSC01755.jpg"
+    ],
+    "tags": [],
+    "slug": "",
+    "lastEdited": "2025-08-05T02:05:00.000Z",
+    "status": "Draft",
+    "caption": "",
+    "type": "What We Do",
+    "meetingInfo": "",
+    "leaders": ""
+  },
+  {
+    "id": "23e37e50-6f95-80bd-bdcb-cc67867c20b6",
+    "title": "",
+    "description": "",
+    "images": [
+      "/public/images/homepage/IMG-6346.jpg"
+    ],
+    "tags": [],
+    "slug": "",
+    "lastEdited": "2025-08-05T02:04:00.000Z",
+    "status": "Draft",
+    "caption": "",
+    "type": "Who We Are",
+    "meetingInfo": "",
+    "leaders": ""
+  }
+]
